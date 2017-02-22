@@ -209,5 +209,15 @@ public class Person {
         this.setProvince(province);
         this.setPostalCode(postalCode);
     }
-
+    
+    /**
+     * Customized to String that returns a string with the first and last name
+     * of the Person
+     * @return A String holding the first and last name of the person separated
+     * by a space character
+     */
+    @Override
+    public String toString() {
+        return String.format("%s %s", this.firstName, this.lastName);
+    }
 }
