@@ -1,0 +1,160 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package assignment1.part2;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+
+/**
+ *
+ * @author matheus leite
+ */
+public class Instructor extends Person {
+    
+    private int employeeNum;
+    LocalDate hireDate;
+    ArrayList<String> teachableCourses;
+    
+    public Instructor(String firstName, String lastName, String streetAddress, 
+            String city, String province, String postalCode, LocalDate birthDate,
+            int employeeNumber, LocalDate hireDate) {
+        
+        super(firstName, lastName, streetAddress, city, province, postalCode, 
+                birthDate);
+        
+        this.employeeNum = employeeNumber;
+        this.setHireDate(hireDate);
+        this.teachableCourses = new ArrayList<String>();
+    }
+
+    public int getEmployeeNum() {
+        return employeeNum;
+    }
+
+    public LocalDate getHireDate() {
+        return hireDate;
+    }
+
+    public ArrayList<String> getTeachableCourses() {
+        return teachableCourses;
+    }
+    
+    
+    /**
+     * Method that checks if the hire date is older than 80 years or it is in
+     * the future. If the hire date is younger or equals to 80 years it sets the
+     * variable hireDate to the new hireDate
+     * @param hireDate The new hire date of the instructor
+     */
+    public void setHireDate(LocalDate hireDate) {
+        int yearsHired = LocalDate.now().getYear() - hireDate.getYear();
+        if(LocalDate.now().getMonth().compareTo(hireDate.getMonth()) < 0) {
+            yearsHired = yearsHired-1;
+        } else if (LocalDate.now().getMonth().compareTo(hireDate.getMonth()) == 0) {
+            if(LocalDate.now().getDayOfMonth() < hireDate.getDayOfMonth()) {
+                yearsHired = yearsHired-1;
+            }
+        }
+        
+        if(yearsHired > 80 || yearsHired < 0) {
+            throw new IllegalArgumentException("The hire date must not be older"
+                    + "than 80 years");
+        } else {
+            this.hireDate = hireDate;
+        }
+    }
+    
+    /**
+     * Method that adds a new teachable course to the instructor
+     * @param courseCode A String representing the course code
+     */
+    public void addTeachableCourse(String courseCode) {
+        this.teachableCourses.add(courseCode.toUpperCase());
+    }
+    
+    /**
+     * Method that returns true if the courseCode is in the teachable courses
+     * list
+     * @param courseCode A String containing a course code to be tested
+     * @return true if the course code is in the teachable courses, false otherwise
+     */
+    public boolean canTeach(String courseCode) {
+        return this.teachableCourses.contains(courseCode.toUpperCase());
+    }
+    
+    /**
+     * Method that returns an integer representing the years that the instructor
+     * worked at the college
+     * @return An integer representing the years that the instructor
+     * worked at the college
+     */
+    public int getYearsAtCollege() {
+       int yearsHired = LocalDate.now().getYear() - hireDate.getYear();
+        if(LocalDate.now().getMonth().compareTo(hireDate.getMonth()) < 0) {
+            yearsHired = yearsHired-1;
+        } else if (LocalDate.now().getMonth().compareTo(hireDate.getMonth()) == 0) {
+            if(LocalDate.now().getDayOfMonth() < hireDate.getDayOfMonth()) {
+                yearsHired = yearsHired-1;
+            }
+        }
+        return yearsHired;
+    }
+    
+    /**
+     * Method that returns a A String with all the subjects that the instructor 
+     * is certified to teach
+     * @return A String with all the subjects that the instructor is certified
+     * to teach
+     */
+    public String listOfSubjectsCertifiedToTeach() {
+        String teachableCourses ="";
+        for(String course : this.teachableCourses) {
+            if(teachableCourses.length() != 0) {
+                teachableCourses += ", ";
+            }
+            teachableCourses += course;
+        }
+        return teachableCourses;
+    }
+    
+    /**
+     * Customized set method that checks if the given birthday falls into the range
+     * of 18-100 years old, setting the new birth date as the instructor birth date
+     * if it is true
+     * @param birthdate the new birth date to be set
+     */
+    @Override
+    public void setBirthday(LocalDate birthdate) {
+        int age = LocalDate.now().getYear() - birthdate.getYear();
+        if(LocalDate.now().getMonth().compareTo(birthdate.getMonth()) < 0) {
+            age = age-1;
+        } else if (LocalDate.now().getMonth().compareTo(birthdate.getMonth()) == 0) {
+            if(LocalDate.now().getDayOfMonth() < birthdate.getDayOfMonth()) {
+                age = age-1;
+            }
+        }
+        
+        if(age >= 18 && age <= 100) {
+            this.birthdate = birthdate;
+        } else {
+            throw new IllegalArgumentException("The student age must be between"
+                    + "18 and 100 years old");
+        }
+    }
+    
+    /**
+     * Overridden toString method that returns the first name, last name and 
+     * employee number as a string
+     * @return A String that holds the first name, last name and employee number
+     */
+    @Override
+    public String toString() {
+        return String.format("%s, %s, %s", this.firstName, this.lastName, 
+                this.employeeNum);
+    }
+    
+    
+}
