@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package assignment1.part2;
 
 import java.time.LocalDate;
@@ -29,15 +24,29 @@ public class Instructor extends Person {
         this.setHireDate(hireDate);
         this.teachableCourses = new ArrayList<String>();
     }
-
+    
+    /**
+     * Default get method for the employeeNum attribute
+     * @return An integer representing the employee number
+     */
     public int getEmployeeNum() {
         return employeeNum;
     }
-
+    
+    /**
+     * Default get method for the hireDate attribute
+     * @return A local date representing the date that the instructor was hired
+     */
     public LocalDate getHireDate() {
         return hireDate;
     }
 
+    /**
+     * Default method that returns an arrayList of the teachable courses
+     * by this instructor
+     * @return An arrayList<String> with the teachable courses by this
+     * instructor
+     */
     public ArrayList<String> getTeachableCourses() {
         return teachableCourses;
     }

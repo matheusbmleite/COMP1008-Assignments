@@ -1,4 +1,3 @@
-
 package assignment1.part2;
 
 import java.time.LocalDate;
