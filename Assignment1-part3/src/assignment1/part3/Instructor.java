@@ -154,7 +154,7 @@ public class Instructor extends Person {
         if(age >= 18 && age <= 100) {
             this.setBirthday(birthdate);
         } else {
-            throw new IllegalArgumentException("The student age must be between"
+            throw new IllegalArgumentException("The instructor age must be between"
                     + "18 and 100 years old");
         }
     }
