@@ -8,3 +8,6 @@ for the Introduction to Object Oriented Programming class (COMP1008).
 
 #Assignment1 - Part 2
 * Create a class Student and a class Instructor, both should extend the class Person and pass all the tests enclosed in StudentTest.java and InstructorTest.java
+
+#Assignment1 - Part 3
+* Create a class Course and a class InvalidStudentException, both should pass all the tests enclosed in CourseTest.java
