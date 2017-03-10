@@ -103,7 +103,7 @@ public class Student extends Person {
     public void setBirthday(LocalDate birthdate) {
         int age = birthdate.until(LocalDate.now()).getYears();
         if(age >= 14 && age <= 90) {
-            this.birthdate= birthdate;
+            super.setBirthday(birthdate);
         } else {
             throw new IllegalArgumentException("The student age must be between"
                     + "14 and 90 years old");

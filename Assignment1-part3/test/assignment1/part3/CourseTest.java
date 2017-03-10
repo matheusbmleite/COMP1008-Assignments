@@ -41,7 +41,7 @@ public class CourseTest {
     public void setUp() throws InvalidStudentException {
         student1 = new Student( "Fred","Flintstone","13 Cobble Way","Bedrock",
                                 "Dendi","A2A0T3",LocalDate.of(1956, Month.SEPTEMBER, 3), 
-                                "COPA",1234, LocalDate.of(2016, Month.MARCH, 10));
+                                "COPA",1234, LocalDate.of(2016, Month.DECEMBER, 31));
         
         student2 = new Student( "Barney","Rubble","15 Cobble Way","Bedrock",
                                 "Dendi","A2A0T3",LocalDate.of(1957, Month.MAY, 13), 

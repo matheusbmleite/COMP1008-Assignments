@@ -111,15 +111,15 @@ public class Course {
      * Method that add a new student to the course
      * @param student the student to be added to the course
      */
-    public void addStudent(Student student) {
+    public void addStudent(Student student) throws InvalidStudentException {
         if(student.inGoodStanding()) {
             if(this.getNumberOfStudentsEnrolled() < this.getMaxNumberOfStudents()) {
                 this.students.add(student);
             } else {
-                throw new IllegalArgumentException("The course is full");
+                throw new InvalidStudentException("The course is full");
             }
         } else {
-            throw new IllegalArgumentException("The student isn't in good standing");
+            throw new InvalidStudentException("The student isn't in good standing");
         }
     }
 

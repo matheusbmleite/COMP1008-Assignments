@@ -8,9 +8,9 @@ public class InvalidStudentException extends Exception {
     
     
     /**
-     * Empty constructor for the class invalidStudentException
+     * Customized constructor for the class invalidStudentException
      */
-    public InvalidStudentException() {
-        
+    public InvalidStudentException(String message) {
+        super(message);
     }
 }

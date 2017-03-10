@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
  */
 public class Person {
     private String firstName, lastName, streetAddress, city, province, postalCode;
-    protected LocalDate birthdate;
+    private LocalDate birthdate;
 
     /**
      * Customized constructor for the person class
