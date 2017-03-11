@@ -240,14 +240,8 @@ public class Course {
      */
     public String showClassList() {
         String classList = "";
-        int counter = 0;
         for(Student student : students) {
-            if(counter == this.getMaxNumberOfStudents()) {
-                classList += student.toString();
-            } else {
-                classList += student.toString()+"\n";
-            }
-            counter++;
+            classList += student.toString()+"\n";
         }
         return classList;
     }
