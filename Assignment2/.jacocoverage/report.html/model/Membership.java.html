@@ -5,11 +5,141 @@
  */
 package model;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.HashMap;
+
 /**
  *
  * @author matheus leite
  */
-<span class="nc" id="L12">class Membership {</span>
+class Membership {
+    
+    private String type, status;
+    private LocalDate startDate, endDate;
+    private double price;
+    private HashMap&lt;String, Double&gt; rates;
+    
+    
+    /**
+     * Customized constructor for the Membership class
+     * @param type the type of the membership
+     * @param startDate the start date of the membership
+     * @param endDate the end date of the membership
+     */
+<span class="fc" id="L30">    public Membership(String type, LocalDate startDate, LocalDate endDate) {</span>
+<span class="fc" id="L31">        this.initializeRates();</span>
+<span class="fc" id="L32">        this.setType(type);</span>
+<span class="fc" id="L33">        this.setPeriod(startDate, endDate);</span>
+<span class="fc" id="L34">        this.setPrice();</span>
+<span class="fc" id="L35">    }</span>
+
+    /**
+     * This method checks if the period of the membership is valid
+     * @param startDate the start date of the membership
+     * @param endDate the end date of the membership
+     */
+    private void setPeriod(LocalDate startDate, LocalDate endDate) {
+        
+<span class="fc bfc" id="L44" title="All 2 branches covered.">        if(startDate.isAfter(endDate)) {</span>
+<span class="fc" id="L45">            throw new IllegalArgumentException(&quot;The end date must be at least a &quot;</span>
+                    + &quot;day after the start date&quot;);
+        }
+<span class="fc" id="L48">        this.startDate = startDate;</span>
+<span class="fc" id="L49">        this.endDate = endDate;</span>
+<span class="fc" id="L50">        this.updateStatus();</span>
+<span class="fc" id="L51">    }</span>
+
+    
+    /**
+     * This method initializes the hash map rates with fixed values
+     */
+    private void initializeRates() {
+<span class="fc" id="L58">        this.rates = new HashMap&lt;String, Double&gt;();</span>
+<span class="fc" id="L59">        this.rates.put(&quot;GYM&quot;, 1.2);</span>
+<span class="fc" id="L60">        this.rates.put(&quot;ROCKWALL&quot;, 0.8);</span>
+<span class="fc" id="L61">        this.rates.put(&quot;FULLFACILITY&quot;, 2.2);</span>
+<span class="fc" id="L62">    }</span>
+    
+    /**
+     * Default get method for the type attribute
+     * @return a String representing the type of the membership
+     */
+    public String getType() {
+<span class="fc" id="L69">        return type;</span>
+    }
+
+    /**
+     * Customized set method for the type of the membership
+     * @param type the new type of the membership
+     */
+    private void setType(String type) {
+<span class="fc" id="L77">        type = type.toUpperCase();</span>
+        
+<span class="fc bfc" id="L79" title="All 2 branches covered.">        for (String validType : this.rates.keySet()) {</span>
+<span class="fc bfc" id="L80" title="All 2 branches covered.">            if(type.equals(validType)) {</span>
+<span class="fc" id="L81">                this.type = type;</span>
+<span class="fc" id="L82">                return;</span>
+            }
+<span class="fc" id="L84">        }</span>
+<span class="fc" id="L85">        throw new IllegalArgumentException(&quot;The membership type is invalid&quot;);   </span>
+    }
+
+    
+    /**
+     * This method updates the status of the membership
+     */
+    public void updateStatus() {
+<span class="fc bfc" id="L93" title="All 2 branches covered.">        if(this.endDate.isBefore(LocalDate.now())) {</span>
+<span class="fc" id="L94">            this.status = &quot;EXPIRED&quot;;</span>
+        } else {
+<span class="fc" id="L96">            this.status = &quot;ACTIVE&quot;;</span>
+        }
+
+<span class="fc" id="L99">    }</span>
+    
+    /**
+     * Customized method to set the price of the membership
+     */
+    public void setPrice() {
+<span class="fc" id="L105">        double typeRate = this.rates.get(this.type);</span>
+<span class="fc" id="L106">        int length = Period.between(this.startDate, this.endDate).getMonths();</span>
+<span class="fc" id="L107">        this.price = typeRate * length * 30;</span>
+<span class="fc" id="L108">    }</span>
+
+    /**
+     * Default get method for the startDate attribute
+     * @return a String representing the type of the membership
+     */
+    public LocalDate getStartDate() {
+<span class="fc" id="L115">        return startDate;</span>
+    }
+    
+    /**
+     * Default get method for the endDate attribute
+     * @return a String representing the type of the membership
+     */
+    public LocalDate getEndDate() {
+<span class="fc" id="L123">        return endDate;</span>
+    }
+    
+    /**
+     * Default get method for the price attribute
+     * @return a String representing the type of the membership
+     */
+    public double getPrice() {
+<span class="fc" id="L131">        return price;</span>
+    }
+    
+    /**
+     * Default get method for the status attribute
+     * @return a String representing the type of the membership
+     */
+    public String getStatus() {
+<span class="fc" id="L139">        return status;</span>
+    }
+    
+    
     
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

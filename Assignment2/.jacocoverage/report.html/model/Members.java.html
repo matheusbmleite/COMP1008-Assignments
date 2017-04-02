@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Members.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Assignment2&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">model</a> &gt; <span class="el_source">Members.java</span></div><h1>Members.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package model;
+
+import java.util.ArrayList;
+
+/**
+ *
+ * @author matheus leite
+ */
+public class Members {
+    private ArrayList&lt;Member&gt; membersList;
+<span class="fc" id="L16">    private int uniqueId = 1000;</span>
+    
+    
+    /**
+     * Customized constructor for the members class
+     */
+<span class="fc" id="L22">    public Members() {</span>
+<span class="fc" id="L23">        this.membersList = new ArrayList&lt;Member&gt;();</span>
+<span class="fc" id="L24">    }</span>
+    
+    /**
+     * Method that adds a new member to the members list
+     * @param newMember the new member to be added to the new list
+     */
+    public void addMember(Member newMember) {
+<span class="fc" id="L31">        newMember.setMembershipNumber(this.getUniqueId());</span>
+<span class="fc" id="L32">        this.membersList.add(newMember);</span>
+<span class="fc" id="L33">    }</span>
+    
+    /**
+     * Method that assigns an uniqueId to each member
+     * @return the uniqueId to be assigned for a new member
+     */
+    private int getUniqueId() {
+<span class="fc" id="L40">        this.uniqueId += 1;</span>
+<span class="fc" id="L41">        return this.uniqueId;</span>
+    }  
+    
+    /**
+     * Method that returns the member list
+     * @return An arrayList with all the members
+     */
+    public ArrayList&lt;Member&gt; getMembersList() {
+<span class="fc" id="L49">        return this.membersList;</span>
+    }
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

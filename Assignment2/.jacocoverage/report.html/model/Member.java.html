@@ -40,14 +40,16 @@ public class Member {
 <span class="fc" id="L40">        this.setPhoneNumber(phoneNumber);</span>
 <span class="fc" id="L41">        this.setPostalCode(postalCode);</span>
 <span class="fc" id="L42">        this.birthdate = birthDate;</span>
-<span class="fc" id="L43">    }</span>
+<span class="fc" id="L43">        this.membershipNumber = -1;</span>
+<span class="fc" id="L44">        this.memberships = new ArrayList&lt;Membership&gt;();</span>
+<span class="fc" id="L45">    }</span>
 
     /**
      * default getter for the first name attribute
      * @return a String containing the first Name of the Member
      */
     public String getFirstName() {
-<span class="fc" id="L50">        return firstName;</span>
+<span class="fc" id="L52">        return firstName;</span>
     }
 
     /**
@@ -55,7 +57,7 @@ public class Member {
      * @return A String with the last name of the Member
      */
     public String getLastName() {
-<span class="fc" id="L58">        return lastName;</span>
+<span class="fc" id="L60">        return lastName;</span>
     }
     
     /**
@@ -63,7 +65,7 @@ public class Member {
      * @return A String with the street address of the Member
      */
     public String getStreetAddress() {
-<span class="fc" id="L66">        return streetAddress;</span>
+<span class="fc" id="L68">        return streetAddress;</span>
     }
 
     /**
@@ -71,7 +73,7 @@ public class Member {
      * @return A String with the city of the Member
      */
     public String getCity() {
-<span class="fc" id="L74">        return city;</span>
+<span class="fc" id="L76">        return city;</span>
     }
 
     /**
@@ -79,7 +81,7 @@ public class Member {
      * @return A String with the province attribute of the Member
      */
     public String getProvince() {
-<span class="fc" id="L82">        return province;</span>
+<span class="fc" id="L84">        return province;</span>
     }
 
     /**
@@ -87,82 +89,122 @@ public class Member {
      * @return A String with the postal code of the Member
      */
     public String getPostalCode() {
-<span class="fc" id="L90">        return postalCode;</span>
+<span class="fc" id="L92">        return postalCode;</span>
     }
     /**
      * default getter for the birth date attribute 
      * @return A Local Date with the birth date of the Member
      */
     public LocalDate getBirthday() {
-<span class="fc" id="L97">        return birthdate;</span>
+<span class="fc" id="L99">        return birthdate;</span>
+    }
+    
+//    /**
+//     * This method returns the full address within the following format: 
+//     * streetAddress, city, province, postalCode
+//     * @return the Full address as a single String
+//     */
+//    public String getFullAddress() {
+//        return String.format(&quot;%s, %s, %s, %s&quot;, this.streetAddress, this.city, this.province, this.postalCode);
+//    }
+    
+//    /**
+//     * This method returns the year of the Member
+//     * @return An integer representing the year of the Member
+//     */
+//    public int getAge() {
+//        int age = LocalDate.now().getYear() - this.getYearBorn();
+//        if(LocalDate.now().getMonth().compareTo(this.birthdate.getMonth()) &lt; 0) {
+//            age = age-1;
+//        }
+//        if (LocalDate.now().getMonth().compareTo(this.birthdate.getMonth()) == 0) {
+//            if(LocalDate.now().getDayOfMonth() &lt; this.birthdate.getDayOfMonth()) {
+//                age = age-1;
+//            }
+//        }
+//        
+//        return age;     
+//    }
+    
+//    /**
+//     * This method returns the year that the Member was born
+//     * @return An integer representing the year that the Member was born
+//     */
+//    public int getYearBorn() {
+//        return this.birthdate.getYear();
+//    }
+    
+    /**
+     * This method returns the phone number of the Member
+     * @return A String representing the phone number of the Member
+     */
+    public String getPhoneNumber() {
+<span class="fc" id="L142">        return this.phoneNumber;</span>
     }
     
     /**
-     * This method returns the full address within the following format: 
-     * streetAddress, city, province, postalCode
-     * @return the Full address as a single String
+     * This method returns the email address of the Member
+     * @return A String representing the email address of the Member
      */
-    public String getFullAddress() {
-<span class="fc" id="L106">        return String.format(&quot;%s, %s, %s, %s&quot;, this.streetAddress, this.city, this.province, this.postalCode);</span>
+    public String getEmailAddress() {
+<span class="fc" id="L150">        return this.emailAddress;</span>
     }
     
     /**
-     * This method returns the year of the Member
-     * @return An integer representing the year of the Member
+     * This method returns the membership number of the Member
+     * @return An integer representing the membership number of the Member
      */
-    public int getAge() {
-<span class="fc" id="L114">        int age = LocalDate.now().getYear() - this.getYearBorn();</span>
-<span class="fc bfc" id="L115" title="All 2 branches covered.">        if(LocalDate.now().getMonth().compareTo(this.birthdate.getMonth()) &lt; 0) {</span>
-<span class="fc" id="L116">            age = age-1;</span>
-        }
-<span class="fc bfc" id="L118" title="All 2 branches covered.">        if (LocalDate.now().getMonth().compareTo(this.birthdate.getMonth()) == 0) {</span>
-<span class="fc bfc" id="L119" title="All 2 branches covered.">            if(LocalDate.now().getDayOfMonth() &lt; this.birthdate.getDayOfMonth()) {</span>
-<span class="fc" id="L120">                age = age-1;</span>
-            }
-        }
-        
-<span class="fc" id="L124">        return age;     </span>
+    public int getMembershipNumber() {
+<span class="fc" id="L158">        return this.membershipNumber;</span>
     }
     
     /**
-     * This method returns the year that the Member was born
-     * @return An integer representing the year that the Member was born
+     * This method returns the memberships of the Member
+     * @return An array list with the memberships of the member
      */
-    public int getYearBorn() {
-<span class="fc" id="L132">        return this.birthdate.getYear();</span>
+    public ArrayList&lt;Membership&gt; getMemberships() {
+<span class="fc" id="L166">        return this.memberships;</span>
     }
+    
+    /**
+     * This method adds a new membership to the memberships list
+     * @param newMembership to be added to the memberships list
+     */
+    public void addMembership(Membership newMembership) {
+<span class="fc" id="L174">        this.memberships.add(newMembership);</span>
+<span class="fc" id="L175">    }</span>
     
     /**
      * default setter for the first name attribute
      * @param firstName the new first name of the Member 
      */
     public void setFirstName(String firstName) {
-<span class="fc" id="L140">        this.firstName = firstName;</span>
-<span class="fc" id="L141">    }</span>
+<span class="fc" id="L182">        this.firstName = firstName;</span>
+<span class="fc" id="L183">    }</span>
     
     /**
      * default setter for the last name attribute
      * @param lastName the new last name of the Member
      */
     public void setLastName(String lastName) {
-<span class="fc" id="L148">        this.lastName = lastName;</span>
-<span class="fc" id="L149">    }</span>
+<span class="fc" id="L190">        this.lastName = lastName;</span>
+<span class="fc" id="L191">    }</span>
 
     /**
      * default setter for the street address attribute
      * @param streetAddress the new street address of the Member
      */
     public void setStreetAddress(String streetAddress) {
-<span class="fc" id="L156">        this.streetAddress = streetAddress;</span>
-<span class="fc" id="L157">    }</span>
+<span class="fc" id="L198">        this.streetAddress = streetAddress;</span>
+<span class="fc" id="L199">    }</span>
     
     /**
      * default setter for the city attribute
      * @param city the new city of the Member
      */
     public void setCity(String city) {
-<span class="fc" id="L164">        this.city = city;</span>
-<span class="fc" id="L165">    }</span>
+<span class="fc" id="L206">        this.city = city;</span>
+<span class="fc" id="L207">    }</span>
     
     /**
      * customized setter for the postal code attribute, it tests if the postal 
@@ -170,32 +212,50 @@ public class Member {
      * @param postalCode the new postal code 
      */
     public void setPostalCode(String postalCode) {
-<span class="fc" id="L173">        this.validatePostalCode(postalCode);</span>
-<span class="fc" id="L174">    }</span>
+<span class="fc" id="L215">        this.validatePostalCode(postalCode);</span>
+<span class="fc" id="L216">    }</span>
     
     /**
      * default setter for the province attribute
      * @param province new province of the Member
      */
     public void setProvince(String province) {
-<span class="fc" id="L181">        this.province = province;</span>
-<span class="fc" id="L182">    }</span>
+<span class="fc" id="L223">        this.province = province;</span>
+<span class="fc" id="L224">    }</span>
 
     /**
      * default setter for the birth date attribute
      * @param birthdate new birth date for the Member
      */
     public void setBirthday(LocalDate birthdate) {
-<span class="fc" id="L189">        this.birthdate = birthdate;</span>
-<span class="fc" id="L190">    }</span>
+<span class="fc" id="L231">        this.birthdate = birthdate;</span>
+<span class="fc" id="L232">    }</span>
     
     /**
      * customized setter for the phone number attribute
      * @param phoneNumber new phoneNumber for the Member
      */
     public void setPhoneNumber(String phoneNumber) {
-<span class="fc" id="L197">        this.validatePhoneNumber(phoneNumber);</span>
-<span class="fc" id="L198">    }</span>
+<span class="fc" id="L239">        this.validatePhoneNumber(phoneNumber);</span>
+<span class="fc" id="L240">    }</span>
+    
+    /**
+     * default setter for the email address attribute
+     * @param emailAddress new emailAddress for the Member
+     */
+    public void setEmailAddress(String emailAddress) {
+<span class="fc" id="L247">        this.emailAddress = emailAddress;</span>
+<span class="fc" id="L248">    }</span>
+    
+    /**
+     * customized setter for the membership number attribute
+     * @param membershipNumber the membership number to be set
+     */
+    protected void setMembershipNumber(int membershipNumber) {
+<span class="fc bfc" id="L255" title="All 2 branches covered.">        if(this.membershipNumber == -1) {</span>
+<span class="fc" id="L256">            this.membershipNumber = membershipNumber;            </span>
+        } 
+<span class="fc" id="L258">    }</span>
     
     /**
      * This method validates the length of the phone number and if it follows the
@@ -203,15 +263,15 @@ public class Member {
      * @param phoneNumber 
      */
     private void validatePhoneNumber(String phoneNumber) {
-<span class="fc bfc" id="L206" title="All 2 branches covered.">        if(phoneNumber.length() != 10) {</span>
-<span class="fc" id="L207">            throw new IllegalArgumentException(&quot;The phone number must have 10 characters&quot;);            </span>
-<span class="fc bfc" id="L208" title="All 2 branches covered.">        }else if(!Pattern.matches(&quot;\\d\\d\\d\\d\\d\\d\\d\\d\\d\\d&quot;, phoneNumber)) {</span>
-<span class="fc" id="L209">            throw new IllegalArgumentException(&quot;The phone number must follow the &quot;</span>
+<span class="fc bfc" id="L266" title="All 2 branches covered.">        if(phoneNumber.length() != 10) {</span>
+<span class="fc" id="L267">            throw new IllegalArgumentException(&quot;The phone number must have 10 characters&quot;);            </span>
+<span class="fc bfc" id="L268" title="All 2 branches covered.">        }else if(!Pattern.matches(&quot;\\d\\d\\d\\d\\d\\d\\d\\d\\d\\d&quot;, phoneNumber)) {</span>
+<span class="fc" id="L269">            throw new IllegalArgumentException(&quot;The phone number must follow the &quot;</span>
                     + &quot;pattern 1111111111 where 1 is a digit&quot;);
         } else {
-<span class="fc" id="L212">            this.phoneNumber = phoneNumber;</span>
+<span class="fc" id="L272">            this.phoneNumber = phoneNumber;</span>
         }
-<span class="fc" id="L214">    }</span>
+<span class="fc" id="L274">    }</span>
     
     /**
      * This method validates the length of the postal code and if it follows the
@@ -219,29 +279,29 @@ public class Member {
      * @param postalCode 
      */
     private void validatePostalCode(String postalCode) {
-<span class="fc bfc" id="L222" title="All 2 branches covered.">        if(postalCode.length() != 6) {</span>
-<span class="fc" id="L223">            throw new IllegalArgumentException(&quot;The postal code must have 6 characters&quot;);            </span>
-<span class="fc bfc" id="L224" title="All 2 branches covered.">        }else if(!Pattern.matches(&quot;[A-Z]\\d[A-z]\\d[A-Z]\\d&quot;, postalCode.toUpperCase())) {</span>
-<span class="fc" id="L225">            throw new IllegalArgumentException(&quot;The postal code must follow the &quot;</span>
+<span class="fc bfc" id="L282" title="All 2 branches covered.">        if(postalCode.length() != 6) {</span>
+<span class="fc" id="L283">            throw new IllegalArgumentException(&quot;The postal code must have 6 characters&quot;);            </span>
+<span class="fc bfc" id="L284" title="All 2 branches covered.">        }else if(!Pattern.matches(&quot;[A-Z]\\d[A-z]\\d[A-Z]\\d&quot;, postalCode.toUpperCase())) {</span>
+<span class="fc" id="L285">            throw new IllegalArgumentException(&quot;The postal code must follow the &quot;</span>
                     + &quot;pattern A1A1A1 where A is a letter and 1 is a digit&quot;);
         } else {
-<span class="fc" id="L228">            this.postalCode = postalCode.toUpperCase();</span>
+<span class="fc" id="L288">            this.postalCode = postalCode.toUpperCase();</span>
         }
-<span class="fc" id="L230">    }</span>
+<span class="fc" id="L290">    }</span>
     
-    /**
-     * This method change the complete address of the Member
-     * @param street the new street address
-     * @param city the new city 
-     * @param province the new province
-     * @param postalCode the new postal code
-     */
-    public void changeAddress(String street, String city, String province, String postalCode) {
-<span class="fc" id="L240">        this.setStreetAddress(street);</span>
-<span class="fc" id="L241">        this.setCity(city);</span>
-<span class="fc" id="L242">        this.setProvince(province);</span>
-<span class="fc" id="L243">        this.setPostalCode(postalCode);</span>
-<span class="fc" id="L244">    }</span>
+//    /**
+//     * This method change the complete address of the Member
+//     * @param street the new street address
+//     * @param city the new city 
+//     * @param province the new province
+//     * @param postalCode the new postal code
+//     */
+//    public void changeAddress(String street, String city, String province, String postalCode) {
+//        this.setStreetAddress(street);
+//        this.setCity(city);
+//        this.setProvince(province);
+//        this.setPostalCode(postalCode);
+//    }
     
     /**
      * Customized to String that returns a string with the first and last name
@@ -251,7 +311,7 @@ public class Member {
      */
     @Override
     public String toString() {
-<span class="fc" id="L254">        return String.format(&quot;%s %s&quot;, this.firstName, this.lastName);</span>
+<span class="fc" id="L314">        return String.format(&quot;%s %s&quot;, this.firstName, this.lastName);</span>
     }
 
 }

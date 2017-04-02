@@ -40,7 +40,8 @@ public class Member {
         this.setPhoneNumber(phoneNumber);
         this.setPostalCode(postalCode);
         this.birthdate = birthDate;
-        this.createMembershipNumber();
+        this.membershipNumber = -1;
+        this.memberships = new ArrayList<Membership>();
     }
 
     /**
@@ -99,41 +100,6 @@ public class Member {
     }
     
     /**
-     * This method returns the full address within the following format: 
-     * streetAddress, city, province, postalCode
-     * @return the Full address as a single String
-     */
-    public String getFullAddress() {
-        return String.format("%s, %s, %s, %s", this.streetAddress, this.city, this.province, this.postalCode);
-    }
-    
-    /**
-     * This method returns the year of the Member
-     * @return An integer representing the year of the Member
-     */
-    public int getAge() {
-        int age = LocalDate.now().getYear() - this.getYearBorn();
-        if(LocalDate.now().getMonth().compareTo(this.birthdate.getMonth()) < 0) {
-            age = age-1;
-        }
-        if (LocalDate.now().getMonth().compareTo(this.birthdate.getMonth()) == 0) {
-            if(LocalDate.now().getDayOfMonth() < this.birthdate.getDayOfMonth()) {
-                age = age-1;
-            }
-        }
-        
-        return age;     
-    }
-    
-    /**
-     * This method returns the year that the Member was born
-     * @return An integer representing the year that the Member was born
-     */
-    public int getYearBorn() {
-        return this.birthdate.getYear();
-    }
-    
-    /**
      * This method returns the phone number of the Member
      * @return A String representing the phone number of the Member
      */
@@ -147,6 +113,30 @@ public class Member {
      */
     public String getEmailAddress() {
         return this.emailAddress;
+    }
+    
+    /**
+     * This method returns the membership number of the Member
+     * @return An integer representing the membership number of the Member
+     */
+    public int getMembershipNumber() {
+        return this.membershipNumber;
+    }
+    
+    /**
+     * This method returns the memberships of the Member
+     * @return An array list with the memberships of the member
+     */
+    public ArrayList<Membership> getMemberships() {
+        return this.memberships;
+    }
+    
+    /**
+     * This method adds a new membership to the memberships list
+     * @param newMembership to be added to the memberships list
+     */
+    public void addMembership(Membership newMembership) {
+        this.memberships.add(newMembership);
     }
     
     /**
@@ -223,6 +213,16 @@ public class Member {
     }
     
     /**
+     * customized setter for the membership number attribute
+     * @param membershipNumber the membership number to be set
+     */
+    protected void setMembershipNumber(int membershipNumber) {
+        if(this.membershipNumber == -1) {
+            this.membershipNumber = membershipNumber;            
+        } 
+    }
+    
+    /**
      * This method validates the length of the phone number and if it follows the
      * pattern 1111111111
      * @param phoneNumber 
@@ -255,20 +255,6 @@ public class Member {
     }
     
     /**
-     * This method change the complete address of the Member
-     * @param street the new street address
-     * @param city the new city 
-     * @param province the new province
-     * @param postalCode the new postal code
-     */
-    public void changeAddress(String street, String city, String province, String postalCode) {
-        this.setStreetAddress(street);
-        this.setCity(city);
-        this.setProvince(province);
-        this.setPostalCode(postalCode);
-    }
-    
-    /**
      * Customized to String that returns a string with the first and last name
      * of the Member
      * @return A String holding the first and last name of the Member separated
@@ -277,10 +263,6 @@ public class Member {
     @Override
     public String toString() {
         return String.format("%s %s", this.firstName, this.lastName);
-    }
-
-    private void createMembershipNumber() {
-        //TODO
     }
 
 }

@@ -7,6 +7,7 @@ package model;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -22,7 +23,9 @@ public class MemberTest {
     
     Member validMember;
     Member invalidMember;
-    
+    Membership validMembership;
+    ArrayList<Membership> validMemberships;
+            
     public MemberTest() {
     }
     
@@ -39,6 +42,13 @@ public class MemberTest {
         validMember = new Member("Jaret", "Wright", "1 Georgian Drive",
         "Barrie", "ON", "L4M3X9", LocalDate.of(1980, Month.MAY, 10), "jaretWright@someemail.com",
         "7059508890");
+        validMember.setMembershipNumber(1100900);
+        
+        validMembership = new Membership("Gym", LocalDate.now(), LocalDate.of(2020, Month.MARCH, 1));
+        validMemberships = new ArrayList<Membership>();
+        validMemberships.add(validMembership);
+        
+        validMember.addMembership(validMembership);
         
     }
     
@@ -144,67 +154,6 @@ public class MemberTest {
     }
 
     /**
-     * Test of getFullAddress method, of class Member.
-     */
-    @Test
-    public void testGetFullAddress() {
-        System.out.println("getFullAddress");
-        String expResult = "1 Georgian Drive, Barrie, ON, L4M3X9";
-        String result = validMember.getFullAddress();
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of getAge method, of class Member.
-     */
-    @Test
-    public void testGetAge() {
-        System.out.println("getAge");
-        int expResult = 36;
-        int result = validMember.getAge();
-        assertEquals(expResult, result);
-    }
-    
-    /**
-     * Test of getAge method, of class Member.
-     */
-    @Test
-    public void testGetAgeSameMonth() {
-        Member someMember = new Member("Jaret", "Wrong", "120 Toronto Avenue",
-        "Barrie", "ON", "L4M3X6", LocalDate.of(1980, Month.APRIL, 10), "jaretWrong@someemail.com",
-        "7059508990");
-        System.out.println("getAgeSameMonth");
-        int expResult = 36;
-        int result = someMember.getAge();
-        assertEquals(expResult, result);
-    }
-    
-    /**
-     * Test of getAge method, of class Member.
-     */
-    @Test
-    public void testGetAgeSameDay() {
-        Member someMember = new Member("Jaret", "Wrong", "120 Toronto Avenue",
-        "Barrie", "ON", "L4M3X6", LocalDate.of(1980, Month.APRIL, 1), "jaretWrong@someemail.com",
-        "7059508990");
-        System.out.println("getAgeSameMonth");
-        int expResult = 37;
-        int result = someMember.getAge();
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of getYearBorn method, of class Member.
-     */
-    @Test
-    public void testGetYearBorn() {
-        System.out.println("getYearBorn");
-        int expResult = 1980;
-        int result = validMember.getYearBorn();
-        assertEquals(expResult, result);
-    }
-
-    /**
      * Test of setFirstName method, of class Member.
      */
     @Test
@@ -253,6 +202,20 @@ public class MemberTest {
         String postalCode = "L5M2H4";
         validMember.setPostalCode(postalCode);
     }
+    
+        /**
+     * Test of setPostalCode method, of class Member.
+     */
+    @Test
+    public void testSetInvalidPostalCode() {
+        System.out.println("setINvalidPostalCode");
+        String postalCode = "L5MH4";
+        try {
+            validMember.setPostalCode(postalCode);
+        } catch (IllegalArgumentException e) {
+            System.out.printf("Constructor threw an exception of invalid postal code %s\n", e.getMessage());
+        }
+    }
 
     /**
      * Test of setProvince method, of class Member.
@@ -272,40 +235,6 @@ public class MemberTest {
         System.out.println("setBirthday");
         LocalDate birthdate = LocalDate.of(1990, Month.MARCH, 23);
         validMember.setBirthday(birthdate);
-    }
-
-    /**
-     * Test of changeAddress method, of class Member.
-     */
-    @Test
-    public void testChangeAddress() {
-        System.out.println("changeAddress");
-        String street = "90 King Street";
-        String city = "Orilia";
-        String province = "BC";
-        String postalCode = "L6K4H5";
-        validMember.changeAddress(street, city, province, postalCode);
-    }
-    
-    /**
-     * Test of changeAddress method with invalid postal code, of class Member.
-     */
-    @Test
-    public void testChangeAddressInvalidPostalCode() {
-        System.out.println("changeAddressInvalidPostalCode");
-        String street = "90 King Street";
-        String city = "Orilia";
-        String province = "BC";
-        String postalCode = "L69H5";
-        try
-        {
-            validMember.changeAddress(street, city, province, postalCode);
-            fail("An exception should've been thrown due to the invalid postal code");
-        }
-        catch (IllegalArgumentException e)
-        {
-            System.out.printf("An exception was thrown for the invalid postalCode, the exception = \"%s\"%n",e.getMessage());
-        }
     }
 
     /**
@@ -357,6 +286,80 @@ public class MemberTest {
             System.out.printf("An exception was thrown for the invalid phone "
                     + "number, the exception = \"%s\"%n",e.getMessage());
         }
+    }
+
+    /**
+     * Test of getPhoneNumber method, of class Member.
+     */
+    @Test
+    public void testGetPhoneNumber() {
+        System.out.println("getPhoneNumber");
+        String expResult = "7059508890";
+        String result = validMember.getPhoneNumber();
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getEmailAddress method, of class Member.
+     */
+    @Test
+    public void testGetEmailAddress() {
+        System.out.println("getEmailAddress");
+        String expResult = "jaretWright@someemail.com";
+        String result = validMember.getEmailAddress();
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getMembershipNumber method, of class Member.
+     */
+    @Test
+    public void testGetMembershipNumber() {
+        System.out.println("getMembershipNumber");
+        int expResult = 1100900;
+        int result = validMember.getMembershipNumber();
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getMemberships method, of class Member.
+     */
+    @Test
+    public void testGetMemberships() {
+        System.out.println("getMemberships");      
+        ArrayList<Membership> expResult = validMemberships;
+        ArrayList<Membership> result = validMember.getMemberships();
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of addMembership method, of class Member.
+     */
+    @Test
+    public void testAddMembership() {
+        System.out.println("addMembership");
+        Membership newMembership = validMembership = new Membership("Gym", LocalDate.now(), LocalDate.of(2019, Month.APRIL, 20));
+        validMember.addMembership(newMembership);
+    }
+
+    /**
+     * Test of setEmailAddress method, of class Member.
+     */
+    @Test
+    public void testSetEmailAddress() {
+        System.out.println("setEmailAddress");
+        String emailAddress = "newEmail@someHost.com";
+        validMember.setEmailAddress(emailAddress);
+    }
+
+    /**
+     * Test of setMembershipNumber method, of class Member.
+     */
+    @Test
+    public void testSetMembershipNumber() {
+        System.out.println("setMembershipNumber");
+        int membershipNumber = 1100900;
+        validMember.setMembershipNumber(membershipNumber);
     }
     
 }
