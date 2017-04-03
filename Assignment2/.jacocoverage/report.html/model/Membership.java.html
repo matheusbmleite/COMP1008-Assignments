@@ -1,19 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Membership.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Assignment2&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">model</a> &gt; <span class="el_source">Membership.java</span></div><h1>Membership.java</h1><pre class="source lang-java linenums">/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package model;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Membership.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Assignment2&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">model</a> &gt; <span class="el_source">Membership.java</span></div><h1>Membership.java</h1><pre class="source lang-java linenums">package model;
 
 import java.time.LocalDate;
-import java.time.Period;
+import static java.time.temporal.ChronoUnit.DAYS;
+import static java.time.temporal.ChronoUnit.HOURS;
 import java.util.HashMap;
 
 /**
  *
  * @author matheus leite
  */
-class Membership {
+public class Membership {
     
     private String type, status;
     private LocalDate startDate, endDate;
@@ -27,12 +23,12 @@ class Membership {
      * @param startDate the start date of the membership
      * @param endDate the end date of the membership
      */
-<span class="fc" id="L30">    public Membership(String type, LocalDate startDate, LocalDate endDate) {</span>
-<span class="fc" id="L31">        this.initializeRates();</span>
-<span class="fc" id="L32">        this.setType(type);</span>
-<span class="fc" id="L33">        this.setPeriod(startDate, endDate);</span>
-<span class="fc" id="L34">        this.setPrice();</span>
-<span class="fc" id="L35">    }</span>
+<span class="fc" id="L26">    public Membership(String type, LocalDate startDate, LocalDate endDate) {</span>
+<span class="fc" id="L27">        this.initializeRates();</span>
+<span class="fc" id="L28">        this.setType(type);</span>
+<span class="fc" id="L29">        this.setPeriod(startDate, endDate);</span>
+<span class="fc" id="L30">        this.setPrice();</span>
+<span class="fc" id="L31">    }</span>
 
     /**
      * This method checks if the period of the membership is valid
@@ -41,32 +37,32 @@ class Membership {
      */
     private void setPeriod(LocalDate startDate, LocalDate endDate) {
         
-<span class="fc bfc" id="L44" title="All 2 branches covered.">        if(startDate.isAfter(endDate)) {</span>
-<span class="fc" id="L45">            throw new IllegalArgumentException(&quot;The end date must be at least a &quot;</span>
+<span class="fc bfc" id="L40" title="All 2 branches covered.">        if(startDate.isAfter(endDate)) {</span>
+<span class="fc" id="L41">            throw new IllegalArgumentException(&quot;The end date must be at least a &quot;</span>
                     + &quot;day after the start date&quot;);
         }
-<span class="fc" id="L48">        this.startDate = startDate;</span>
-<span class="fc" id="L49">        this.endDate = endDate;</span>
-<span class="fc" id="L50">        this.updateStatus();</span>
-<span class="fc" id="L51">    }</span>
+<span class="fc" id="L44">        this.startDate = startDate;</span>
+<span class="fc" id="L45">        this.endDate = endDate;</span>
+<span class="fc" id="L46">        this.updateStatus();</span>
+<span class="fc" id="L47">    }</span>
 
     
     /**
      * This method initializes the hash map rates with fixed values
      */
     private void initializeRates() {
-<span class="fc" id="L58">        this.rates = new HashMap&lt;String, Double&gt;();</span>
-<span class="fc" id="L59">        this.rates.put(&quot;GYM&quot;, 1.2);</span>
-<span class="fc" id="L60">        this.rates.put(&quot;ROCKWALL&quot;, 0.8);</span>
-<span class="fc" id="L61">        this.rates.put(&quot;FULLFACILITY&quot;, 2.2);</span>
-<span class="fc" id="L62">    }</span>
+<span class="fc" id="L54">        this.rates = new HashMap&lt;String, Double&gt;();</span>
+<span class="fc" id="L55">        this.rates.put(&quot;GYM&quot;, 0.5);</span>
+<span class="fc" id="L56">        this.rates.put(&quot;ROCKWALL&quot;, 0.3);</span>
+<span class="fc" id="L57">        this.rates.put(&quot;FULLFACILITY&quot;, 0.8);</span>
+<span class="fc" id="L58">    }</span>
     
     /**
      * Default get method for the type attribute
      * @return a String representing the type of the membership
      */
     public String getType() {
-<span class="fc" id="L69">        return type;</span>
+<span class="fc" id="L65">        return type;</span>
     }
 
     /**
@@ -74,15 +70,15 @@ class Membership {
      * @param type the new type of the membership
      */
     private void setType(String type) {
-<span class="fc" id="L77">        type = type.toUpperCase();</span>
+<span class="fc" id="L73">        type = type.toUpperCase();</span>
         
-<span class="fc bfc" id="L79" title="All 2 branches covered.">        for (String validType : this.rates.keySet()) {</span>
-<span class="fc bfc" id="L80" title="All 2 branches covered.">            if(type.equals(validType)) {</span>
-<span class="fc" id="L81">                this.type = type;</span>
-<span class="fc" id="L82">                return;</span>
+<span class="fc bfc" id="L75" title="All 2 branches covered.">        for (String validType : this.rates.keySet()) {</span>
+<span class="fc bfc" id="L76" title="All 2 branches covered.">            if(type.equals(validType)) {</span>
+<span class="fc" id="L77">                this.type = type;</span>
+<span class="fc" id="L78">                return;</span>
             }
-<span class="fc" id="L84">        }</span>
-<span class="fc" id="L85">        throw new IllegalArgumentException(&quot;The membership type is invalid&quot;);   </span>
+<span class="fc" id="L80">        }</span>
+<span class="fc" id="L81">        throw new IllegalArgumentException(&quot;The membership type is invalid&quot;);   </span>
     }
 
     
@@ -90,21 +86,25 @@ class Membership {
      * This method updates the status of the membership
      */
     public void updateStatus() {
-<span class="fc bfc" id="L93" title="All 2 branches covered.">        if(this.endDate.isBefore(LocalDate.now())) {</span>
-<span class="fc" id="L94">            this.status = &quot;EXPIRED&quot;;</span>
+<span class="fc bfc" id="L89" title="All 2 branches covered.">        if(this.endDate.isBefore(LocalDate.now())) {</span>
+<span class="fc" id="L90">            this.status = &quot;EXPIRED&quot;;</span>
         } else {
-<span class="fc" id="L96">            this.status = &quot;ACTIVE&quot;;</span>
+<span class="fc" id="L92">            this.status = &quot;ACTIVE&quot;;</span>
         }
 
-<span class="fc" id="L99">    }</span>
+<span class="fc" id="L95">    }</span>
     
     /**
      * Customized method to set the price of the membership
      */
     public void setPrice() {
-<span class="fc" id="L105">        double typeRate = this.rates.get(this.type);</span>
-<span class="fc" id="L106">        int length = Period.between(this.startDate, this.endDate).getMonths();</span>
-<span class="fc" id="L107">        this.price = typeRate * length * 30;</span>
+<span class="fc" id="L101">        double typeRate = this.rates.get(this.type);</span>
+<span class="pc bpc" id="L102" title="1 of 2 branches missed.">        if(this.startDate.equals(this.endDate)) {</span>
+<span class="nc" id="L103">            this.price = typeRate * 5;</span>
+        } else {
+<span class="fc" id="L105">            long length = DAYS.between(this.startDate, this.endDate);</span>
+<span class="fc" id="L106">            this.price = typeRate * length * 5;</span>
+        } 
 <span class="fc" id="L108">    }</span>
 
     /**

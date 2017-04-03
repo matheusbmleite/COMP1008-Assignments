@@ -1,7 +1,8 @@
 package model;
 
 import java.time.LocalDate;
-import java.time.Period;
+import static java.time.temporal.ChronoUnit.DAYS;
+import static java.time.temporal.ChronoUnit.HOURS;
 import java.util.HashMap;
 
 /**
@@ -51,9 +52,9 @@ public class Membership {
      */
     private void initializeRates() {
         this.rates = new HashMap<String, Double>();
-        this.rates.put("GYM", 1.0);
-        this.rates.put("ROCKWALL", 0.8);
-        this.rates.put("FULLFACILITY", 2.2);
+        this.rates.put("GYM", 0.5);
+        this.rates.put("ROCKWALL", 0.3);
+        this.rates.put("FULLFACILITY", 0.8);
     }
     
     /**
@@ -98,9 +99,12 @@ public class Membership {
      */
     public void setPrice() {
         double typeRate = this.rates.get(this.type);
-        int length = Period.between(this.startDate, this.endDate).getDays();
-        System.out.println("Length" + length);
-        this.price = typeRate * length * 5;
+        if(this.startDate.equals(this.endDate)) {
+            this.price = typeRate * 5;
+        } else {
+            long length = DAYS.between(this.startDate, this.endDate);
+            this.price = typeRate * length * 5;
+        } 
     }
 
     /**

@@ -26,7 +26,7 @@ import model.Members;
  */
 <span class="nc" id="L27">public class CreateMemberViewController implements Initializable {</span>
     
-      //Labels
+    //Labels
     @FXML private Label fnameLabel;
     @FXML private Label lnameLabel;
     @FXML private Label streetAddressLabel;
@@ -119,7 +119,7 @@ import model.Members;
          
         //Passing the member list to the main panel of the application
 <span class="nc" id="L121">        MainPanelViewController controller = loader.getController();</span>
-<span class="nc" id="L122">        controller.getMemberList(newMembers);</span>
+<span class="nc" id="L122">        controller.setMemberList(newMembers);</span>
         
          //Getting the stage object
 <span class="nc" id="L125">         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();</span>

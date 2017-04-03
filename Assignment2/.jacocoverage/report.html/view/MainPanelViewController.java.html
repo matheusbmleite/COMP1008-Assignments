@@ -1,15 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>MainPanelViewController.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Assignment2&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">view</a> &gt; <span class="el_source">MainPanelViewController.java</span></div><h1>MainPanelViewController.java</h1><pre class="source lang-java linenums">/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package view;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>MainPanelViewController.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Assignment2&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">view</a> &gt; <span class="el_source">MainPanelViewController.java</span></div><h1>MainPanelViewController.java</h1><pre class="source lang-java linenums">package view;
 
+import com.google.gson.Gson;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -26,12 +24,13 @@ import javafx.stage.Stage;
 import model.Member;
 import model.Members;
 
+
 /**
  * FXML Controller class
  *
  * @author matheus leite
  */
-<span class="nc" id="L34">public class MainPanelViewController implements Initializable {</span>
+<span class="nc" id="L33">public class MainPanelViewController implements Initializable {</span>
     
     //configuring the table
     @FXML private TableView&lt;Member&gt; tableView;
@@ -42,42 +41,47 @@ import model.Members;
     @FXML private TableColumn&lt;Member, String&gt; emailColumn;
     @FXML private TableColumn&lt;Member, String&gt; phoneColumn;
     
+    //label
+    @FXML private Label errorLabel;
+    
     private Member newMember;
-<span class="nc" id="L46">    private Members members = new Members();</span>
+<span class="nc" id="L48">    private Members members = new Members();</span>
     
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-<span class="nc" id="L53">        membershipNumColumn.setCellValueFactory(new PropertyValueFactory&lt;Member, Integer&gt;(&quot;membershipNumber&quot;));</span>
-<span class="nc" id="L54">        firstNameColumn.setCellValueFactory(new PropertyValueFactory&lt;Member, String&gt;(&quot;firstName&quot;));</span>
-<span class="nc" id="L55">        lastNameColumn.setCellValueFactory(new PropertyValueFactory&lt;Member, String&gt;(&quot;lastName&quot;));</span>
-<span class="nc" id="L56">        birthdayColumn.setCellValueFactory(new PropertyValueFactory&lt;Member, LocalDate&gt;(&quot;birthday&quot;));</span>
-<span class="nc" id="L57">        emailColumn.setCellValueFactory(new PropertyValueFactory&lt;Member, String&gt;(&quot;emailAddress&quot;));</span>
-<span class="nc" id="L58">        phoneColumn.setCellValueFactory(new PropertyValueFactory&lt;Member, String&gt;(&quot;phoneNumber&quot;));</span>
+<span class="nc" id="L55">        membershipNumColumn.setCellValueFactory(new PropertyValueFactory&lt;Member, Integer&gt;(&quot;membershipNumber&quot;));</span>
+<span class="nc" id="L56">        firstNameColumn.setCellValueFactory(new PropertyValueFactory&lt;Member, String&gt;(&quot;firstName&quot;));</span>
+<span class="nc" id="L57">        lastNameColumn.setCellValueFactory(new PropertyValueFactory&lt;Member, String&gt;(&quot;lastName&quot;));</span>
+<span class="nc" id="L58">        birthdayColumn.setCellValueFactory(new PropertyValueFactory&lt;Member, LocalDate&gt;(&quot;birthday&quot;));</span>
+<span class="nc" id="L59">        emailColumn.setCellValueFactory(new PropertyValueFactory&lt;Member, String&gt;(&quot;emailAddress&quot;));</span>
+<span class="nc" id="L60">        phoneColumn.setCellValueFactory(new PropertyValueFactory&lt;Member, String&gt;(&quot;phoneNumber&quot;));</span>
         
         //loading members
-<span class="nc" id="L61">        tableView.setItems(getMembers());</span>
-<span class="nc" id="L62">    }    </span>
+<span class="nc" id="L63">        tableView.setItems(getMembersObservableList());</span>
+        
+<span class="nc" id="L65">        errorLabel.setText(&quot;&quot;);</span>
+<span class="nc" id="L66">    }    </span>
     
     /**
      * This method gets the members list as an observable list
      * @return ObservableList&lt;Member&gt; representing the members of the application
      */
-    public ObservableList&lt;Member&gt; getMembers() {
-<span class="nc" id="L69">        return FXCollections.observableArrayList(members.getMembersList());</span>
+    public ObservableList&lt;Member&gt; getMembersObservableList() {
+<span class="nc" id="L73">        return FXCollections.observableArrayList(members.getMembersList());</span>
     }
     
     /**
      * This method receives an updated member list and updates the table with it
      * @param updatedMembers An updated Members object
      */
-    public void getMemberList(Members updatedMembers) {
-<span class="nc" id="L77">        this.members = updatedMembers;</span>
+    public void setMemberList(Members updatedMembers) {
+<span class="nc" id="L81">        this.members = updatedMembers;</span>
         //loading updated members
-<span class="nc" id="L79">        tableView.setItems(getMembers());</span>
-<span class="nc" id="L80">    }</span>
+<span class="nc" id="L83">        tableView.setItems(getMembersObservableList());</span>
+<span class="nc" id="L84">    }</span>
     
     /**
      * This method changes the scene to the create member, passing the Members
@@ -87,21 +91,95 @@ import model.Members;
      */
     public void addMemberButtonPushed(ActionEvent event) throws IOException {
                
-<span class="nc" id="L90">        FXMLLoader loader = new FXMLLoader();</span>
-<span class="nc" id="L91">        loader.setLocation(getClass().getResource(&quot;CreateMemberView.fxml&quot;));</span>
-<span class="nc" id="L92">        Parent tableViewParent = loader.load();</span>
+<span class="nc" id="L94">        FXMLLoader loader = new FXMLLoader();</span>
+<span class="nc" id="L95">        loader.setLocation(getClass().getResource(&quot;CreateMemberView.fxml&quot;));</span>
+<span class="nc" id="L96">        Parent tableViewParent = loader.load();</span>
         
-<span class="nc" id="L94">        Scene tableViewScene = new Scene(tableViewParent);</span>
+<span class="nc" id="L98">        Scene tableViewScene = new Scene(tableViewParent);</span>
         
-<span class="nc" id="L96">        CreateMemberViewController controller = loader.getController();</span>
-<span class="nc" id="L97">        controller.receiveMembers(members);</span>
+<span class="nc" id="L100">        CreateMemberViewController controller = loader.getController();</span>
+<span class="nc" id="L101">        controller.receiveMembers(members);</span>
         
         //Getting the stage object
-<span class="nc" id="L100">        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();</span>
-<span class="nc" id="L101">        stage.setTitle(&quot;Create Member&quot;);</span>
-<span class="nc" id="L102">        stage.setScene(tableViewScene);</span>
-<span class="nc" id="L103">        stage.show();</span>
-<span class="nc" id="L104">    }</span>
+<span class="nc" id="L104">        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();</span>
+<span class="nc" id="L105">        stage.setTitle(&quot;Create Member&quot;);</span>
+<span class="nc" id="L106">        stage.setScene(tableViewScene);</span>
+<span class="nc" id="L107">        stage.show();</span>
+<span class="nc" id="L108">    }</span>
+    
+    /**
+     * Method that changes the scene to the PurchaseMembershipView every time a
+     * button is pushed
+     * @param event
+     * @throws IOException 
+     */
+    public void purchaseMembershipButtonPushed(ActionEvent event) throws IOException {
+<span class="nc bnc" id="L117" title="All 2 branches missed.">        if(this.tableView.getSelectionModel().getSelectedItem() == null) {</span>
+<span class="nc" id="L118">            this.errorLabel.setText(&quot;Please, select a member in order to sell a &quot;</span>
+                    + &quot;membership&quot;);
+<span class="nc" id="L120">            return;</span>
+        }
+<span class="nc" id="L122">        FXMLLoader loader = new FXMLLoader();</span>
+<span class="nc" id="L123">        loader.setLocation(getClass().getResource(&quot;PurchaseMembershipView.fxml&quot;));</span>
+<span class="nc" id="L124">        Parent tableViewParent = loader.load();</span>
+        
+<span class="nc" id="L126">        Scene tableViewScene = new Scene(tableViewParent);</span>
+        
+<span class="nc" id="L128">        PurchaseMembershipViewController controller = loader.getController();</span>
+<span class="nc" id="L129">        controller.receiveData(members, this.tableView.getSelectionModel().getSelectedItem());</span>
+        
+        //Getting the stage object
+<span class="nc" id="L132">        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();</span>
+<span class="nc" id="L133">        stage.setTitle(&quot;Purchase Membership&quot;);</span>
+<span class="nc" id="L134">        stage.setScene(tableViewScene);</span>
+<span class="nc" id="L135">        stage.show();</span>
+<span class="nc" id="L136">    }</span>
+    
+    /**
+     * Method that changes the scene to the MembershipsView every time a
+     * button is pushed
+     * @param event
+     * @throws IOException 
+     */
+    public void viewMembershipsButtonPushed(ActionEvent event) throws IOException {
+<span class="nc bnc" id="L145" title="All 2 branches missed.">        if(this.tableView.getSelectionModel().getSelectedItem() == null) {</span>
+<span class="nc" id="L146">            this.errorLabel.setText(&quot;Please, select a member in order to display its &quot;</span>
+                    + &quot;memberships&quot;);
+<span class="nc" id="L148">            return;</span>
+        }
+<span class="nc" id="L150">        FXMLLoader loader = new FXMLLoader();</span>
+<span class="nc" id="L151">        loader.setLocation(getClass().getResource(&quot;MembershipsView.fxml&quot;));</span>
+<span class="nc" id="L152">        Parent tableViewParent = loader.load();</span>
+        
+<span class="nc" id="L154">        Scene tableViewScene = new Scene(tableViewParent);</span>
+        
+<span class="nc" id="L156">        MembershipsViewController controller = loader.getController();</span>
+<span class="nc" id="L157">        controller.receiveData(members, this.tableView.getSelectionModel().getSelectedItem());</span>
+        
+        //Getting the stage object
+<span class="nc" id="L160">        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();</span>
+<span class="nc" id="L161">        stage.setTitle(&quot;Purchase Membership&quot;);</span>
+<span class="nc" id="L162">        stage.setScene(tableViewScene);</span>
+<span class="nc" id="L163">        stage.show();</span>
+<span class="nc" id="L164">    }</span>
+    
+    /**
+     * Method that returns the members attribute from this class
+     * @return 
+     */
+    public Members getMembers() {
+<span class="nc" id="L171">        return this.members;</span>
+    }
+    
+    /**
+     * Method that allows us to perform an action every time the application
+     * is closed
+     * @param event 
+     */
+    @FXML
+    public void exitApplication(ActionEvent event) {
+<span class="nc" id="L181">        Platform.exit();</span>
+<span class="nc" id="L182">    }</span>
     
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

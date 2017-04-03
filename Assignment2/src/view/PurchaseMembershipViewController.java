@@ -1,18 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import model.Member;
 import model.Members;
 import model.Membership;
@@ -42,6 +44,7 @@ public class PurchaseMembershipViewController implements Initializable {
     private Member member;
     private Members members;
     private Membership membership;
+    
     /**
      * Initializes the controller class.
      */
@@ -66,19 +69,66 @@ public class PurchaseMembershipViewController implements Initializable {
         this.member = member;
     }
     
+    /**
+     * This method will calculate the total of the purchase and display it in 
+     * the total text field
+     */
     public void calculateTotalButtonPushed() {
+        this.errorLabel.setText("");
         try {
             this.membership = new Membership(this.typeChoiceBox.getValue(),
                 this.startDatePicker.getValue(), 
                 this.endDatePicker.getValue());
-            this.totalTextField.setText(Double.toString(this.membership.getPrice()));
+            String price = String.format("%.2f", this.membership.getPrice());
+            System.out.println(this.membership.getPrice());
+            this.totalTextField.setText(price);
         }catch (IllegalArgumentException e) {
             this.errorLabel.setText(e.getMessage());
         }
         
     }
-    public void purchaseButtonPushed() {
+    
+    /**
+     * This method will create a new membership and assign it to the member 
+     * selected on the last view, it will also change the view to the main panel
+     * of the application
+     * @param event
+     * @throws IOException 
+     */
+    public void purchaseButtonPushed(ActionEvent event) throws IOException {
+        try {
+            this.membership = new Membership(this.typeChoiceBox.getValue(),
+                this.startDatePicker.getValue(), 
+                this.endDatePicker.getValue());
+            this.member.addMembership(membership);
+            this.changeView(event);
+        }catch (IllegalArgumentException e) {
+            this.errorLabel.setText(e.getMessage());
+        }
+    }
+    
+    /**
+     * This method change the scene to the main panel of the application, passing
+     * the new members list to it
+     * @param event
+     * @throws IOException 
+     */
+    public void changeView(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("MainPanelView.fxml"));
+        Parent tableViewParent = loader.load();
         
+        Scene tableViewScene = new Scene(tableViewParent);
+         
+        //Passing the member list to the main panel of the application
+        MainPanelViewController controller = loader.getController();
+        controller.setMemberList(members);
+        
+         //Getting the stage object
+         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+         stage.setTitle("COMP 1008 GYM");
+         stage.setScene(tableViewScene);
+         stage.show();
     }
     
     

@@ -1,33 +1,35 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
+import com.google.gson.Gson;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import model.Members;
+import view.MainPanelViewController;
 
 /**
  *
  * @author matheus leite
  */
 public class MembersController extends Application {
+    private MainPanelViewController mainPanelController;
     
     @Override
     public void start(Stage primaryStage) throws IOException {
-        FXMLLoader loader = new FXMLLoader();        
+        FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/view/MainPanelView.fxml"));
-        
         AnchorPane anchorPane = loader.load();
+        
+         
+        //Passing the member list to the main panel of the application
+        this.mainPanelController = loader.getController();
+        
         
         Scene scene = new Scene(anchorPane);
         primaryStage.setTitle("COMP 1008 GYM");
@@ -42,4 +44,39 @@ public class MembersController extends Application {
         launch(args);
     }
     
+    /**
+     * Overriding the stop method, so it executes the save before closing the 
+     * application
+     */
+    @Override
+    public void stop(){
+        this.saveToFile();
+    }
+    
+    /**
+     * Converting the members to Json and writing it to a file called 
+     * members.json
+     */
+    private void saveToFile() {
+        Members members = this.mainPanelController.getMembers();
+        Gson gson = new Gson();
+        BufferedWriter bufferedWriter;
+        FileWriter fileWriter;
+        //converting members to json
+        gson.toJson(members);
+        //converting the json to a string
+        String jsonInString = gson.toJson(members);
+        
+        //writing it to a file called members.json
+        try {
+            fileWriter = new FileWriter("./resources/members.json");
+            bufferedWriter = new BufferedWriter(fileWriter);
+            bufferedWriter.write(jsonInString);
+            bufferedWriter.close();
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println("The file couldn't be saved");
+        }
+    }
+
 }
