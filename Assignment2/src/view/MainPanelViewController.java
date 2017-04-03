@@ -103,4 +103,21 @@ public class MainPanelViewController implements Initializable {
         stage.show();
     }
     
+    public void purchaseMembershipButtonPushed(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("PurchaseMembershipView.fxml"));
+        Parent tableViewParent = loader.load();
+        
+        Scene tableViewScene = new Scene(tableViewParent);
+        
+        PurchaseMembershipViewController controller = loader.getController();
+        controller.receiveData(members, this.tableView.getSelectionModel().getSelectedItem());
+        
+        //Getting the stage object
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.setTitle("Purchase Membership");
+        stage.setScene(tableViewScene);
+        stage.show();
+    }
+    
 }

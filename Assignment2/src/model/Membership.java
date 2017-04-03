@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import java.time.LocalDate;
@@ -13,7 +8,7 @@ import java.util.HashMap;
  *
  * @author matheus leite
  */
-class Membership {
+public class Membership {
     
     private String type, status;
     private LocalDate startDate, endDate;
@@ -56,7 +51,7 @@ class Membership {
      */
     private void initializeRates() {
         this.rates = new HashMap<String, Double>();
-        this.rates.put("GYM", 1.2);
+        this.rates.put("GYM", 1.0);
         this.rates.put("ROCKWALL", 0.8);
         this.rates.put("FULLFACILITY", 2.2);
     }
@@ -103,8 +98,9 @@ class Membership {
      */
     public void setPrice() {
         double typeRate = this.rates.get(this.type);
-        int length = Period.between(this.startDate, this.endDate).getMonths();
-        this.price = typeRate * length * 30;
+        int length = Period.between(this.startDate, this.endDate).getDays();
+        System.out.println("Length" + length);
+        this.price = typeRate * length * 5;
     }
 
     /**

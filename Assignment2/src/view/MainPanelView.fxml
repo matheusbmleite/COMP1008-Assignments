@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="388.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="view.MainPanelViewController">
+<AnchorPane id="AnchorPane" prefHeight="388.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainPanelViewController">
    <children>
       <VBox layoutX="383.0" layoutY="165.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -35,7 +34,7 @@
                         <Insets right="30.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" text="Purchase Membership" />
+                  <Button mnemonicParsing="false" onAction="#purchaseMembershipButtonPushed" text="Purchase Membership" />
                </children>
                <VBox.margin>
                   <Insets />
