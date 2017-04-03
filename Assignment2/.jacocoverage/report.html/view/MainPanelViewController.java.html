@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>MainPanelViewController.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Assignment2&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">view</a> &gt; <span class="el_source">MainPanelViewController.java</span></div><h1>MainPanelViewController.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package view;
+
+import java.io.IOException;
+import java.net.URL;
+import java.time.LocalDate;
+import java.time.Month;
+import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
+import model.Member;
+import model.Members;
+
+/**
+ * FXML Controller class
+ *
+ * @author matheus leite
+ */
+<span class="nc" id="L34">public class MainPanelViewController implements Initializable {</span>
+    
+    //configuring the table
+    @FXML private TableView&lt;Member&gt; tableView;
+    @FXML private TableColumn&lt;Member, Integer&gt; membershipNumColumn;
+    @FXML private TableColumn&lt;Member, String&gt; firstNameColumn;
+    @FXML private TableColumn&lt;Member, String&gt; lastNameColumn;
+    @FXML private TableColumn&lt;Member, LocalDate&gt; birthdayColumn;
+    @FXML private TableColumn&lt;Member, String&gt; emailColumn;
+    @FXML private TableColumn&lt;Member, String&gt; phoneColumn;
+    
+    private Member newMember;
+<span class="nc" id="L46">    private Members members = new Members();</span>
+    
+    /**
+     * Initializes the controller class.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+<span class="nc" id="L53">        membershipNumColumn.setCellValueFactory(new PropertyValueFactory&lt;Member, Integer&gt;(&quot;membershipNumber&quot;));</span>
+<span class="nc" id="L54">        firstNameColumn.setCellValueFactory(new PropertyValueFactory&lt;Member, String&gt;(&quot;firstName&quot;));</span>
+<span class="nc" id="L55">        lastNameColumn.setCellValueFactory(new PropertyValueFactory&lt;Member, String&gt;(&quot;lastName&quot;));</span>
+<span class="nc" id="L56">        birthdayColumn.setCellValueFactory(new PropertyValueFactory&lt;Member, LocalDate&gt;(&quot;birthday&quot;));</span>
+<span class="nc" id="L57">        emailColumn.setCellValueFactory(new PropertyValueFactory&lt;Member, String&gt;(&quot;emailAddress&quot;));</span>
+<span class="nc" id="L58">        phoneColumn.setCellValueFactory(new PropertyValueFactory&lt;Member, String&gt;(&quot;phoneNumber&quot;));</span>
+        
+        //loading members
+<span class="nc" id="L61">        tableView.setItems(getMembers());</span>
+<span class="nc" id="L62">    }    </span>
+    
+    /**
+     * This method gets the members list as an observable list
+     * @return ObservableList&lt;Member&gt; representing the members of the application
+     */
+    public ObservableList&lt;Member&gt; getMembers() {
+<span class="nc" id="L69">        return FXCollections.observableArrayList(members.getMembersList());</span>
+    }
+    
+    /**
+     * This method receives an updated member list and updates the table with it
+     * @param updatedMembers An updated Members object
+     */
+    public void getMemberList(Members updatedMembers) {
+<span class="nc" id="L77">        this.members = updatedMembers;</span>
+        //loading updated members
+<span class="nc" id="L79">        tableView.setItems(getMembers());</span>
+<span class="nc" id="L80">    }</span>
+    
+    /**
+     * This method changes the scene to the create member, passing the Members
+     * object to it
+     * @param event
+     * @throws IOException 
+     */
+    public void addMemberButtonPushed(ActionEvent event) throws IOException {
+               
+<span class="nc" id="L90">        FXMLLoader loader = new FXMLLoader();</span>
+<span class="nc" id="L91">        loader.setLocation(getClass().getResource(&quot;CreateMemberView.fxml&quot;));</span>
+<span class="nc" id="L92">        Parent tableViewParent = loader.load();</span>
+        
+<span class="nc" id="L94">        Scene tableViewScene = new Scene(tableViewParent);</span>
+        
+<span class="nc" id="L96">        CreateMemberViewController controller = loader.getController();</span>
+<span class="nc" id="L97">        controller.receiveMembers(members);</span>
+        
+        //Getting the stage object
+<span class="nc" id="L100">        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();</span>
+<span class="nc" id="L101">        stage.setTitle(&quot;Create Member&quot;);</span>
+<span class="nc" id="L102">        stage.setScene(tableViewScene);</span>
+<span class="nc" id="L103">        stage.show();</span>
+<span class="nc" id="L104">    }</span>
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

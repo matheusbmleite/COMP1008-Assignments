@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>CreateMemberViewController.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Assignment2&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">view</a> &gt; <span class="el_source">CreateMemberViewController.java</span></div><h1>CreateMemberViewController.java</h1><pre class="source lang-java linenums">package view;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+import model.Member;
+import model.Members;
+
+/**
+ * FXML Controller class
+ *
+ * @author matheus leite
+ */
+<span class="nc" id="L27">public class CreateMemberViewController implements Initializable {</span>
+    
+      //Labels
+    @FXML private Label fnameLabel;
+    @FXML private Label lnameLabel;
+    @FXML private Label streetAddressLabel;
+    @FXML private Label cityLabel;
+    @FXML private Label provinceLabel;
+    @FXML private Label postalCodeLabel;
+    @FXML private Label birthdateLabel;
+    @FXML private Label emailLabel;
+    @FXML private Label phoneLabel;
+    @FXML private Label errorLabel;
+    
+    //TextFields
+    @FXML private TextField fnameTextField;
+    @FXML private TextField lnameTextField;
+    @FXML private TextField streetAddressTextField;
+    @FXML private TextField cityTextField;
+    @FXML private TextField postalCodeTextField;
+    @FXML private TextField emailTextField;
+    @FXML private TextField phoneTextField;
+    
+    //ChoiceBox and DatePicker
+    @FXML private ChoiceBox&lt;String&gt; provinceChoiceBox;
+    @FXML private DatePicker birthdateDatePicker;
+    
+    //Button
+    @FXML private Button createButton;
+    
+    //Members of the application
+    private Members newMembers;
+    
+    
+    /**
+     * Initializes the controller class.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+<span class="nc" id="L66">        errorLabel.setText(&quot;&quot;);</span>
+        
+        //setting up the choice box
+<span class="nc" id="L69">        this.provinceChoiceBox.getItems().addAll(&quot;ON&quot;, &quot;QC&quot;, &quot;NS&quot;, &quot;NB&quot;, &quot;MB&quot;, </span>
+                &quot;BC&quot;, &quot;PE&quot;, &quot;SK&quot;, &quot;AB&quot;, &quot;NL&quot;);
+<span class="nc" id="L71">        this.provinceChoiceBox.setValue(&quot;ON&quot;);</span>
+        
+<span class="nc" id="L73">    }</span>
+
+    /**
+     * This method is launched every time the create button is pressed, it 
+     * creates a new member, add this new member to the members list and returns 
+     * to the main panel of the application
+     * @param event 
+     * @throws IOException 
+     */
+    public void createButtonPushed(ActionEvent event) throws IOException {
+        Member newMember;
+        try {
+<span class="nc" id="L85">            newMember = new Member(fnameTextField.getText(), lnameTextField.getText(), </span>
+<span class="nc" id="L86">            streetAddressTextField.getText(), cityTextField.getText(), </span>
+<span class="nc" id="L87">                    provinceChoiceBox.getValue(), </span>
+<span class="nc" id="L88">                    postalCodeTextField.getText(), </span>
+<span class="nc" id="L89">                    birthdateDatePicker.getValue(), emailTextField.getText(),</span>
+<span class="nc" id="L90">                    phoneTextField.getText());</span>
+<span class="nc" id="L91">            newMembers.addMember(newMember);</span>
+<span class="nc" id="L92">            this.changeView(event);</span>
+<span class="nc" id="L93">        } catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L94">            errorLabel.setText(e.getMessage());</span>
+            
+<span class="nc" id="L96">        }</span>
+<span class="nc" id="L97">    }</span>
+    
+    /**
+     * This method receive the members list from the main panel of the application
+     * @param members 
+     */
+    public void receiveMembers(Members members) {
+<span class="nc" id="L104">        this.newMembers = members;</span>
+<span class="nc" id="L105">    }</span>
+    
+    /**
+     * This method change the scene to the main panel of the application, passing
+     * the new members list to it
+     * @param event
+     * @throws IOException 
+     */
+    public void changeView(ActionEvent event) throws IOException {
+<span class="nc" id="L114">        FXMLLoader loader = new FXMLLoader();</span>
+<span class="nc" id="L115">        loader.setLocation(getClass().getResource(&quot;MainPanelView.fxml&quot;));</span>
+<span class="nc" id="L116">        Parent tableViewParent = loader.load();</span>
+        
+<span class="nc" id="L118">        Scene tableViewScene = new Scene(tableViewParent);</span>
+         
+        //Passing the member list to the main panel of the application
+<span class="nc" id="L121">        MainPanelViewController controller = loader.getController();</span>
+<span class="nc" id="L122">        controller.getMemberList(newMembers);</span>
+        
+         //Getting the stage object
+<span class="nc" id="L125">         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();</span>
+<span class="nc" id="L126">         stage.setTitle(&quot;COMP 1008 GYM&quot;);</span>
+<span class="nc" id="L127">         stage.setScene(tableViewScene);</span>
+<span class="nc" id="L128">         stage.show();</span>
+<span class="nc" id="L129">    }</span>
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>
