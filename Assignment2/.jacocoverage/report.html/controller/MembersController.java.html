@@ -2,11 +2,12 @@
 
 import com.google.gson.Gson;
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -17,32 +18,34 @@ import view.MainPanelViewController;
  *
  * @author matheus leite
  */
-<span class="nc" id="L20">public class MembersController extends Application {</span>
+<span class="nc" id="L21">public class MembersController extends Application {</span>
     private MainPanelViewController mainPanelController;
+    private Members members;
     
     @Override
     public void start(Stage primaryStage) throws IOException {
-<span class="nc" id="L25">        FXMLLoader loader = new FXMLLoader();</span>
-<span class="nc" id="L26">        loader.setLocation(getClass().getResource(&quot;/view/MainPanelView.fxml&quot;));</span>
-<span class="nc" id="L27">        AnchorPane anchorPane = loader.load();</span>
+<span class="nc" id="L27">        this.readFromFile();</span>
+<span class="nc" id="L28">        FXMLLoader loader = new FXMLLoader();</span>
+<span class="nc" id="L29">        loader.setLocation(getClass().getResource(&quot;/view/MainPanelView.fxml&quot;));</span>
+<span class="nc" id="L30">        AnchorPane anchorPane = loader.load();</span>
         
          
         //Passing the member list to the main panel of the application
-<span class="nc" id="L31">        this.mainPanelController = loader.getController();</span>
+<span class="nc" id="L34">        this.mainPanelController = loader.getController();</span>
+<span class="nc" id="L35">        this.mainPanelController.setMemberList(this.members);</span>
         
-        
-<span class="nc" id="L34">        Scene scene = new Scene(anchorPane);</span>
-<span class="nc" id="L35">        primaryStage.setTitle(&quot;COMP 1008 GYM&quot;);</span>
-<span class="nc" id="L36">        primaryStage.setScene(scene);</span>
-<span class="nc" id="L37">        primaryStage.show();</span>
-<span class="nc" id="L38">    }</span>
+<span class="nc" id="L37">        Scene scene = new Scene(anchorPane);</span>
+<span class="nc" id="L38">        primaryStage.setTitle(&quot;COMP 1008 GYM&quot;);</span>
+<span class="nc" id="L39">        primaryStage.setScene(scene);</span>
+<span class="nc" id="L40">        primaryStage.show();</span>
+<span class="nc" id="L41">    }</span>
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-<span class="nc" id="L44">        launch(args);</span>
-<span class="nc" id="L45">    }</span>
+<span class="nc" id="L47">        launch(args);</span>
+<span class="nc" id="L48">    }</span>
     
     /**
      * Overriding the stop method, so it executes the save before closing the 
@@ -50,34 +53,48 @@ import view.MainPanelViewController;
      */
     @Override
     public void stop(){
-<span class="nc" id="L53">        this.saveToFile();</span>
-<span class="nc" id="L54">    }</span>
+<span class="nc" id="L56">        this.saveToFile();</span>
+<span class="nc" id="L57">    }</span>
     
     /**
      * Converting the members to Json and writing it to a file called 
      * members.json
      */
     private void saveToFile() {
-<span class="nc" id="L61">        Members members = this.mainPanelController.getMembers();</span>
-<span class="nc" id="L62">        Gson gson = new Gson();</span>
+<span class="nc" id="L64">        Members members = this.mainPanelController.getMembers();</span>
+<span class="nc" id="L65">        Gson gson = new Gson();</span>
         BufferedWriter bufferedWriter;
         FileWriter fileWriter;
         //converting members to json
-<span class="nc" id="L66">        gson.toJson(members);</span>
+<span class="nc" id="L69">        gson.toJson(members);</span>
         //converting the json to a string
-<span class="nc" id="L68">        String jsonInString = gson.toJson(members);</span>
+<span class="nc" id="L71">        String jsonInString = gson.toJson(members);</span>
         
         //writing it to a file called members.json
         try {
-<span class="nc" id="L72">            fileWriter = new FileWriter(&quot;./resources/members.json&quot;);</span>
-<span class="nc" id="L73">            bufferedWriter = new BufferedWriter(fileWriter);</span>
-<span class="nc" id="L74">            bufferedWriter.write(jsonInString);</span>
-<span class="nc" id="L75">            bufferedWriter.close();</span>
-<span class="nc" id="L76">            fileWriter.close();</span>
-<span class="nc" id="L77">        } catch (IOException e) {</span>
-<span class="nc" id="L78">            System.out.println(&quot;The file couldn't be saved&quot;);</span>
-<span class="nc" id="L79">        }</span>
-<span class="nc" id="L80">    }</span>
+<span class="nc" id="L75">            fileWriter = new FileWriter(&quot;./resources/members.json&quot;);</span>
+<span class="nc" id="L76">            bufferedWriter = new BufferedWriter(fileWriter);</span>
+<span class="nc" id="L77">            bufferedWriter.write(jsonInString);</span>
+<span class="nc" id="L78">            bufferedWriter.close();</span>
+<span class="nc" id="L79">            fileWriter.close();</span>
+<span class="nc" id="L80">        } catch (IOException e) {</span>
+<span class="nc" id="L81">            System.out.println(&quot;The file couldn't be saved&quot;);</span>
+<span class="nc" id="L82">        }</span>
+<span class="nc" id="L83">    }</span>
+    
+    /**
+     * This method read the members from a json file and create the object with 
+     * the information from the file
+     */
+    private void readFromFile() {
+<span class="nc" id="L90">        Gson gson = new Gson();</span>
+        try {
+<span class="nc" id="L92">            this.members = gson.fromJson(new FileReader(&quot;./resources/members.json&quot;), Members.class);</span>
+<span class="nc" id="L93">        } catch (FileNotFoundException e) {</span>
+            //If there's no file, do nothing
+<span class="nc" id="L95">        }</span>
+        
+<span class="nc" id="L97">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

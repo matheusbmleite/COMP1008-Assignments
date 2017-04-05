@@ -31,8 +31,8 @@ public class Member {
     public Member(String firstName, String lastName, String streetAddress, 
             String city, String province, String postalCode, LocalDate birthDate,
             String emailAddress, String phoneNumber) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.setFirstName(firstName);
+        this.setLastName(lastName);
         this.streetAddress = streetAddress;
         this.city = city;
         this.province = province;
@@ -144,6 +144,9 @@ public class Member {
      * @param firstName the new first name of the Member 
      */
     public void setFirstName(String firstName) {
+        if(firstName.isEmpty()) {
+            throw new IllegalArgumentException("The member must have a first name");
+        }
         this.firstName = firstName;
     }
     
@@ -152,6 +155,9 @@ public class Member {
      * @param lastName the new last name of the Member
      */
     public void setLastName(String lastName) {
+        if(lastName.isEmpty()) {
+            throw new IllegalArgumentException("The member must have a last name");
+        }
         this.lastName = lastName;
     }
 

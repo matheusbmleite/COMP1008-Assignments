@@ -108,8 +108,13 @@ public class MembershipTest {
     @Test
     public void testUpdateStatusExpired() {
         System.out.println("updateStatusExpired");
-        invalidMembership = new Membership("Gym", LocalDate.of(2017, Month.MARCH, 30), LocalDate.of(2017, Month.APRIL, 1));
-        validMembership.updateStatus();
+        try {
+            invalidMembership = new Membership("Gym", LocalDate.of(2017, Month.MARCH, 30), LocalDate.of(2017, Month.APRIL, 1));
+            invalidMembership.updateStatus();
+        } catch (IllegalArgumentException e) {
+            System.out.printf("Constructor threw an exception for invalid start date \"%s\"", e.getMessage());
+        }
+        
     }
 
     /**
@@ -119,6 +124,16 @@ public class MembershipTest {
     public void testSetPrice() {
         System.out.println("setPrice");
         validMembership.setPrice();
+    }
+    
+    /**
+     * Test of setPrice method, of class Membership.
+     */
+    @Test
+    public void testSetPriceSameDayMembership() {
+        System.out.println("setPriceSameDay");
+        Membership sameDayMembership = new Membership("Gym", LocalDate.of(2017, Month.DECEMBER, 30), LocalDate.of(2017, Month.DECEMBER, 30));
+        sameDayMembership.setPrice();
     }
 
     /**
@@ -149,7 +164,7 @@ public class MembershipTest {
     @Test
     public void testGetPrice() {
         System.out.println("getPrice");
-        double expResult = 607.5;
+        double expResult = 605;
         double result = validMembership.getPrice();
         assertEquals(expResult, result, 0.0);
     }

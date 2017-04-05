@@ -38,31 +38,36 @@ public class Membership {
     private void setPeriod(LocalDate startDate, LocalDate endDate) {
         
 <span class="fc bfc" id="L40" title="All 2 branches covered.">        if(startDate.isAfter(endDate)) {</span>
-<span class="fc" id="L41">            throw new IllegalArgumentException(&quot;The end date must be at least a &quot;</span>
-                    + &quot;day after the start date&quot;);
+<span class="fc" id="L41">            throw new IllegalArgumentException(&quot;The end date must be at least on &quot;</span>
+                    + &quot;the same day as the start date&quot;);
         }
-<span class="fc" id="L44">        this.startDate = startDate;</span>
-<span class="fc" id="L45">        this.endDate = endDate;</span>
-<span class="fc" id="L46">        this.updateStatus();</span>
-<span class="fc" id="L47">    }</span>
+        
+<span class="fc bfc" id="L45" title="All 2 branches covered.">        if(startDate.isBefore(LocalDate.now())) {</span>
+<span class="fc" id="L46">            throw new IllegalArgumentException(&quot;The start date must be today's date&quot;</span>
+                    + &quot; or a date in the future&quot;);
+        }
+<span class="fc" id="L49">        this.startDate = startDate;</span>
+<span class="fc" id="L50">        this.endDate = endDate;</span>
+<span class="fc" id="L51">        this.updateStatus();</span>
+<span class="fc" id="L52">    }</span>
 
     
     /**
      * This method initializes the hash map rates with fixed values
      */
     private void initializeRates() {
-<span class="fc" id="L54">        this.rates = new HashMap&lt;String, Double&gt;();</span>
-<span class="fc" id="L55">        this.rates.put(&quot;GYM&quot;, 0.5);</span>
-<span class="fc" id="L56">        this.rates.put(&quot;ROCKWALL&quot;, 0.3);</span>
-<span class="fc" id="L57">        this.rates.put(&quot;FULLFACILITY&quot;, 0.8);</span>
-<span class="fc" id="L58">    }</span>
+<span class="fc" id="L59">        this.rates = new HashMap&lt;String, Double&gt;();</span>
+<span class="fc" id="L60">        this.rates.put(&quot;GYM&quot;, 0.5);</span>
+<span class="fc" id="L61">        this.rates.put(&quot;ROCKWALL&quot;, 0.3);</span>
+<span class="fc" id="L62">        this.rates.put(&quot;FULLFACILITY&quot;, 0.8);</span>
+<span class="fc" id="L63">    }</span>
     
     /**
      * Default get method for the type attribute
      * @return a String representing the type of the membership
      */
     public String getType() {
-<span class="fc" id="L65">        return type;</span>
+<span class="fc" id="L70">        return type;</span>
     }
 
     /**
@@ -70,15 +75,15 @@ public class Membership {
      * @param type the new type of the membership
      */
     private void setType(String type) {
-<span class="fc" id="L73">        type = type.toUpperCase();</span>
+<span class="fc" id="L78">        type = type.toUpperCase();</span>
         
-<span class="fc bfc" id="L75" title="All 2 branches covered.">        for (String validType : this.rates.keySet()) {</span>
-<span class="fc bfc" id="L76" title="All 2 branches covered.">            if(type.equals(validType)) {</span>
-<span class="fc" id="L77">                this.type = type;</span>
-<span class="fc" id="L78">                return;</span>
+<span class="fc bfc" id="L80" title="All 2 branches covered.">        for (String validType : this.rates.keySet()) {</span>
+<span class="fc bfc" id="L81" title="All 2 branches covered.">            if(type.equals(validType)) {</span>
+<span class="fc" id="L82">                this.type = type;</span>
+<span class="fc" id="L83">                return;</span>
             }
-<span class="fc" id="L80">        }</span>
-<span class="fc" id="L81">        throw new IllegalArgumentException(&quot;The membership type is invalid&quot;);   </span>
+<span class="fc" id="L85">        }</span>
+<span class="fc" id="L86">        throw new IllegalArgumentException(&quot;The membership type is invalid&quot;);   </span>
     }
 
     
@@ -86,33 +91,34 @@ public class Membership {
      * This method updates the status of the membership
      */
     public void updateStatus() {
-<span class="fc bfc" id="L89" title="All 2 branches covered.">        if(this.endDate.isBefore(LocalDate.now())) {</span>
-<span class="fc" id="L90">            this.status = &quot;EXPIRED&quot;;</span>
+<span class="pc bpc" id="L94" title="1 of 2 branches missed.">        if(this.endDate.isBefore(LocalDate.now())) {</span>
+<span class="nc" id="L95">            this.status = &quot;EXPIRED&quot;;</span>
         } else {
-<span class="fc" id="L92">            this.status = &quot;ACTIVE&quot;;</span>
+<span class="fc" id="L97">            this.status = &quot;ACTIVE&quot;;</span>
         }
+            
 
-<span class="fc" id="L95">    }</span>
+<span class="fc" id="L101">    }</span>
     
     /**
      * Customized method to set the price of the membership
      */
     public void setPrice() {
-<span class="fc" id="L101">        double typeRate = this.rates.get(this.type);</span>
-<span class="pc bpc" id="L102" title="1 of 2 branches missed.">        if(this.startDate.equals(this.endDate)) {</span>
-<span class="nc" id="L103">            this.price = typeRate * 5;</span>
+<span class="fc" id="L107">        double typeRate = this.rates.get(this.type);</span>
+<span class="fc bfc" id="L108" title="All 2 branches covered.">        if(this.startDate.equals(this.endDate)) {</span>
+<span class="fc" id="L109">            this.price = typeRate + 9;</span>
         } else {
-<span class="fc" id="L105">            long length = DAYS.between(this.startDate, this.endDate);</span>
-<span class="fc" id="L106">            this.price = typeRate * length * 5;</span>
+<span class="fc" id="L111">            long length = DAYS.between(this.startDate, this.endDate);</span>
+<span class="fc" id="L112">            this.price = typeRate * length * 5;</span>
         } 
-<span class="fc" id="L108">    }</span>
+<span class="fc" id="L114">    }</span>
 
     /**
      * Default get method for the startDate attribute
      * @return a String representing the type of the membership
      */
     public LocalDate getStartDate() {
-<span class="fc" id="L115">        return startDate;</span>
+<span class="fc" id="L121">        return startDate;</span>
     }
     
     /**
@@ -120,7 +126,7 @@ public class Membership {
      * @return a String representing the type of the membership
      */
     public LocalDate getEndDate() {
-<span class="fc" id="L123">        return endDate;</span>
+<span class="fc" id="L129">        return endDate;</span>
     }
     
     /**
@@ -128,7 +134,7 @@ public class Membership {
      * @return a String representing the type of the membership
      */
     public double getPrice() {
-<span class="fc" id="L131">        return price;</span>
+<span class="fc" id="L137">        return price;</span>
     }
     
     /**
@@ -136,7 +142,7 @@ public class Membership {
      * @return a String representing the type of the membership
      */
     public String getStatus() {
-<span class="fc" id="L139">        return status;</span>
+<span class="fc" id="L145">        return status;</span>
     }
     
     

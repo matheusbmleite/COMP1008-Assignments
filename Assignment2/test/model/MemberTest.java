@@ -162,6 +162,21 @@ public class MemberTest {
         String firstName = "Scott";
         validMember.setFirstName(firstName);
     }
+    
+     /**
+     * Test of setFirstName method, of class Member.
+     */
+    @Test
+    public void testSetEmptyFirstName() {
+        System.out.println("setEmptyFirstName");
+        String firstName = "";
+        try {
+            validMember.setFirstName(firstName);
+        } catch (IllegalArgumentException e) {
+            System.out.printf("Method threw an exception because of the empty "
+                    + "first name \"%s\"", e.getMessage());
+        }
+    }
 
     /**
      * Test of setLastName method, of class Member.
@@ -171,6 +186,21 @@ public class MemberTest {
         System.out.println("setLastName");
         String lastName = "McCrindle";
         validMember.setLastName(lastName);
+    }
+    
+    /**
+     * Test of setLastName method, of class Member.
+     */
+    @Test
+    public void testSetEmptyLastName() {
+        System.out.println("setLastName");
+        String lastName = "";
+        try {
+            validMember.setLastName(lastName);
+        } catch (IllegalArgumentException e) {
+            System.out.printf("Method threw an exception because of the empty "
+                    + "last name \"%s\"", e.getMessage());
+        }
     }
 
     /**

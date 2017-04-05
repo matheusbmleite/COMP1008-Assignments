@@ -38,8 +38,13 @@ public class Membership {
     private void setPeriod(LocalDate startDate, LocalDate endDate) {
         
         if(startDate.isAfter(endDate)) {
-            throw new IllegalArgumentException("The end date must be at least a "
-                    + "day after the start date");
+            throw new IllegalArgumentException("The end date must be at least on "
+                    + "the same day as the start date");
+        }
+        
+        if(startDate.isBefore(LocalDate.now())) {
+            throw new IllegalArgumentException("The start date must be today's date"
+                    + " or a date in the future");
         }
         this.startDate = startDate;
         this.endDate = endDate;
@@ -91,6 +96,7 @@ public class Membership {
         } else {
             this.status = "ACTIVE";
         }
+            
 
     }
     
@@ -100,7 +106,7 @@ public class Membership {
     public void setPrice() {
         double typeRate = this.rates.get(this.type);
         if(this.startDate.equals(this.endDate)) {
-            this.price = typeRate * 5;
+            this.price = typeRate + 9;
         } else {
             long length = DAYS.between(this.startDate, this.endDate);
             this.price = typeRate * length * 5;

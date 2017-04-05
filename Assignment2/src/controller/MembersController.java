@@ -2,11 +2,12 @@ package controller;
 
 import com.google.gson.Gson;
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -19,9 +20,11 @@ import view.MainPanelViewController;
  */
 public class MembersController extends Application {
     private MainPanelViewController mainPanelController;
+    private Members members;
     
     @Override
     public void start(Stage primaryStage) throws IOException {
+        this.readFromFile();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/view/MainPanelView.fxml"));
         AnchorPane anchorPane = loader.load();
@@ -29,7 +32,7 @@ public class MembersController extends Application {
          
         //Passing the member list to the main panel of the application
         this.mainPanelController = loader.getController();
-        
+        this.mainPanelController.setMemberList(this.members);
         
         Scene scene = new Scene(anchorPane);
         primaryStage.setTitle("COMP 1008 GYM");
@@ -77,6 +80,20 @@ public class MembersController extends Application {
         } catch (IOException e) {
             System.out.println("The file couldn't be saved");
         }
+    }
+    
+    /**
+     * This method read the members from a json file and create the object with 
+     * the information from the file
+     */
+    private void readFromFile() {
+        Gson gson = new Gson();
+        try {
+            this.members = gson.fromJson(new FileReader("./resources/members.json"), Members.class);
+        } catch (FileNotFoundException e) {
+            //If there's no file, do nothing
+        }
+        
     }
 
 }
