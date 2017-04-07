@@ -2,6 +2,7 @@ package view;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -70,6 +71,8 @@ public class CreateMemberViewController implements Initializable {
                 "BC", "PE", "SK", "AB", "NL");
         this.provinceChoiceBox.setValue("ON");
         
+        //Setting the current date in the birthday date picker
+        this.birthdateDatePicker.setValue(LocalDate.now());
     }
 
     /**

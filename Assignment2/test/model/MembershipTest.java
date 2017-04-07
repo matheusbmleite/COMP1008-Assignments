@@ -5,6 +5,9 @@
  */
 package model;
 
+import com.google.gson.Gson;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.time.LocalDate;
 import java.time.Month;
 import org.junit.After;
@@ -22,7 +25,7 @@ public class MembershipTest {
     
     Membership validMembership;
     Membership invalidMembership;
-    
+    Membership expiredMembership;
     public MembershipTest() {
     }
     
@@ -37,6 +40,12 @@ public class MembershipTest {
     @Before
     public void setUp() {
         validMembership = new Membership("Gym", LocalDate.now(), LocalDate.of(2017, Month.DECEMBER, 2));
+        Gson gson = new Gson();
+        try {
+            this.expiredMembership = gson.fromJson(new FileReader("./resources/expiredMembership.json"), Members.class).getMembersList().get(0).getMemberships().get(1);
+        } catch (FileNotFoundException e) {
+            //If there's no file, do nothing
+        }
     }
     
     @After
@@ -164,7 +173,7 @@ public class MembershipTest {
     @Test
     public void testGetPrice() {
         System.out.println("getPrice");
-        double expResult = 605;
+        double expResult = 600;
         double result = validMembership.getPrice();
         assertEquals(expResult, result, 0.0);
     }
@@ -177,6 +186,31 @@ public class MembershipTest {
         System.out.println("getStatus");
         String expResult = "ACTIVE";
         String result = validMembership.getStatus();
+        assertEquals(expResult, result);
+    }
+    
+    /**
+     * Test of getStatus method, of class Membership.
+     */
+    @Test
+    public void testGetStatusExpired() {
+        System.out.println("getStatus");
+        String expResult = "EXPIRED";
+        String result = expiredMembership.getStatus();
+        assertEquals(expResult, result);
+    }
+    
+    /**
+     * Test of toString method, of class Membership.
+     */
+    @Test
+    public void testToString() {
+        System.out.println("toString");
+        String expResult = String.format("Membership type: GYM%n"
+                + "Membership status ACTIVE%n" +
+                "Start date %s%n" +
+                "End date %s%n", LocalDate.now().toString(), LocalDate.of(2017, Month.DECEMBER, 2));
+        String result = validMembership.toString();
         assertEquals(expResult, result);
     }
     

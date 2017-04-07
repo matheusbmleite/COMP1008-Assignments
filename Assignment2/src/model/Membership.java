@@ -142,7 +142,20 @@ public class Membership {
      * @return a String representing the type of the membership
      */
     public String getStatus() {
+        this.updateStatus();
         return status;
+    }
+    
+    /**
+     * This method returns the membership in a human readable way
+     * @return A String object representing the Membership object
+     */
+    public String toString() {
+        return String.format("Membership type: %s%n"
+                + "Membership status %s%n"
+                + "Start date %s%n"
+                + "End date %s%n", this.getType(), this.getStatus(), 
+                this.getStartDate().toString(), this.getEndDate().toString());
     }
     
     

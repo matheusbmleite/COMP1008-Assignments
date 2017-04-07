@@ -91,8 +91,8 @@ public class Membership {
      * This method updates the status of the membership
      */
     public void updateStatus() {
-<span class="pc bpc" id="L94" title="1 of 2 branches missed.">        if(this.endDate.isBefore(LocalDate.now())) {</span>
-<span class="nc" id="L95">            this.status = &quot;EXPIRED&quot;;</span>
+<span class="fc bfc" id="L94" title="All 2 branches covered.">        if(this.endDate.isBefore(LocalDate.now())) {</span>
+<span class="fc" id="L95">            this.status = &quot;EXPIRED&quot;;</span>
         } else {
 <span class="fc" id="L97">            this.status = &quot;ACTIVE&quot;;</span>
         }
@@ -142,7 +142,20 @@ public class Membership {
      * @return a String representing the type of the membership
      */
     public String getStatus() {
-<span class="fc" id="L145">        return status;</span>
+<span class="fc" id="L145">        this.updateStatus();</span>
+<span class="fc" id="L146">        return status;</span>
+    }
+    
+    /**
+     * This method returns the membership in a human readable way
+     * @return A String object representing the Membership object
+     */
+    public String toString() {
+<span class="fc" id="L154">        return String.format(&quot;Membership type: %s%n&quot;</span>
+                + &quot;Membership status %s%n&quot;
+                + &quot;Start date %s%n&quot;
+<span class="fc" id="L157">                + &quot;End date %s%n&quot;, this.getType(), this.getStatus(), </span>
+<span class="fc" id="L158">                this.getStartDate().toString(), this.getEndDate().toString());</span>
     }
     
     

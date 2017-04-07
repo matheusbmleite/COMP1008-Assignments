@@ -266,6 +266,20 @@ public class MemberTest {
         LocalDate birthdate = LocalDate.of(1990, Month.MARCH, 23);
         validMember.setBirthday(birthdate);
     }
+    
+    /**
+     * Test of setBirthday method, of class Member.
+     */
+    @Test
+    public void testSetBirthdayUnderEighteen() {
+        System.out.println("setBirthdayUnderEighteen");
+        LocalDate birthdate = LocalDate.now();
+        try {
+            validMember.setBirthday(birthdate);
+        } catch (IllegalArgumentException e) {
+            System.out.printf("An exception was thrown due to the underage member %s\n", e.getMessage());
+        }
+    }
 
     /**
      * Test of toString method, of class Member.

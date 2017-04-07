@@ -49,4 +49,21 @@ public class Members {
         return this.membersList;
     }
     
+    /**
+     * This method will return the members in a human readable way
+     * @return A String object representing the Members object
+     */
+    public String toString() {
+        String membersString = "";
+        for (Member member : this.membersList) {
+            membersString += String.format("The member %s has the following"
+                    + " memberships:%n", member.toString());
+            for(Membership membership : member.getMemberships()) {
+                membersString += String.format(" %s", membership.toString());
+            }
+            membersString+= String.format("%n");
+        }
+        return membersString;
+    }
+    
 }

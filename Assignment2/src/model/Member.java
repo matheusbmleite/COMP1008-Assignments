@@ -1,6 +1,7 @@
 package model;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
@@ -39,7 +40,7 @@ public class Member {
         this.emailAddress = emailAddress;
         this.setPhoneNumber(phoneNumber);
         this.setPostalCode(postalCode);
-        this.birthdate = birthDate;
+        this.setBirthday(birthDate);
         this.membershipNumber = -1;
         this.memberships = new ArrayList<Membership>();
     }
@@ -199,6 +200,10 @@ public class Member {
      * @param birthdate new birth date for the Member
      */
     public void setBirthday(LocalDate birthdate) {
+        if(Period.between(birthdate, LocalDate.now()).getYears() < 18) {
+            throw new IllegalArgumentException("The member must be at least 18"
+                    + " years old");
+        }
         this.birthdate = birthdate;
     }
     
@@ -237,8 +242,8 @@ public class Member {
         if(phoneNumber.length() != 10) {
             throw new IllegalArgumentException("The phone number must have 10 characters");            
         }else if(!Pattern.matches("\\d\\d\\d\\d\\d\\d\\d\\d\\d\\d", phoneNumber)) {
-            throw new IllegalArgumentException("The phone number must follow the "
-                    + "pattern 1111111111 where 1 is a digit");
+            throw new IllegalArgumentException("The phone number must contain"
+                    + " 10 digits (0-9), without dashes or parentheses");
         } else {
             this.phoneNumber = phoneNumber;
         }
