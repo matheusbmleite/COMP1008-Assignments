@@ -136,4 +136,11 @@ public class CreateMemberViewController implements Initializable {
          stage.show();
     }
     
+    /**
+     * This method will return to the main panel when the cancel button is pressed
+     * @param event 
+     */
+    public void cancelButtonPushed(ActionEvent event) throws IOException {
+        this.changeView(event);
+    }
 }

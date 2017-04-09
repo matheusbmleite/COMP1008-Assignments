@@ -67,6 +67,7 @@ public class MainPanelViewController implements Initializable {
         tableView.setItems(getMembersObservableList());
         
         errorLabel.setText("");
+        errorLabel.setId("error");
         
         
     }    
@@ -164,7 +165,7 @@ public class MainPanelViewController implements Initializable {
         
         //Getting the stage object
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setTitle("Purchase Membership");
+        stage.setTitle("View Memberships");
         stage.setScene(tableViewScene);
         stage.show();
     }

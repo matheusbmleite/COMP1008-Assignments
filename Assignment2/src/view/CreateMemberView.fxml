@@ -12,9 +12,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane id="AnchorPane" prefHeight="690.0" prefWidth="602.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.CreateMemberViewController">
+<AnchorPane id="AnchorPane" prefHeight="613.0" prefWidth="602.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.CreateMemberViewController">
    <children>
-      <GridPane alignment="CENTER_RIGHT" layoutX="6.0" layoutY="269.0" prefHeight="617.0" prefWidth="602.0" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="-6.0" AnchorPane.topAnchor="0.0">
+      <GridPane alignment="CENTER_RIGHT" layoutX="6.0" layoutY="269.0" prefHeight="550.0" prefWidth="602.0" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="-6.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
           <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="401.0" minWidth="10.0" prefWidth="133.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="703.0" minWidth="10.0" prefWidth="439.0" />
@@ -90,14 +90,15 @@
             <Insets left="10.0" right="20.0" top="10.0" />
          </padding>
       </GridPane>
-      <Pane layoutY="697.0" prefHeight="40.0" prefWidth="602.0">
+      <Pane layoutY="575.0" prefHeight="40.0" prefWidth="602.0">
          <children>
             <Label fx:id="errorLabel" layoutX="14.0" layoutY="14.0" text="Label" />
          </children>
       </Pane>
-      <AnchorPane layoutY="639.0" prefHeight="48.0" prefWidth="602.0">
+      <AnchorPane layoutY="538.0" prefHeight="48.0" prefWidth="602.0">
          <children>
             <Button fx:id="createButton" layoutX="468.0" layoutY="11.0" mnemonicParsing="false" onAction="#createButtonPushed" text="Create Member" />
+            <Button layoutX="389.0" layoutY="12.0" mnemonicParsing="false" onAction="#cancelButtonPushed" text="Cancel" />
          </children>
       </AnchorPane>
    </children>

@@ -51,12 +51,13 @@ import model.Membership;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 <span class="nc" id="L53">        errorLabel.setText(&quot;&quot;);</span>
-<span class="nc" id="L54">        this.totalTextField.setEditable(false);</span>
+<span class="nc" id="L54">        errorLabel.setId(&quot;error&quot;);</span>
+<span class="nc" id="L55">        this.totalTextField.setEditable(false);</span>
         
         //setting up the choice box
-<span class="nc" id="L57">        this.typeChoiceBox.getItems().addAll(&quot;GYM&quot;, &quot;ROCKWALL&quot;, &quot;FULLFACILITY&quot;);</span>
-<span class="nc" id="L58">        this.typeChoiceBox.setValue(&quot;GYM&quot;);</span>
-<span class="nc" id="L59">    }</span>
+<span class="nc" id="L58">        this.typeChoiceBox.getItems().addAll(&quot;GYM&quot;, &quot;ROCKWALL&quot;, &quot;FULLFACILITY&quot;);</span>
+<span class="nc" id="L59">        this.typeChoiceBox.setValue(&quot;GYM&quot;);</span>
+<span class="nc" id="L60">    }</span>
     
     /**
      * This method receives a member to which the membership will be purchased
@@ -65,27 +66,36 @@ import model.Membership;
      * @param member 
      */
     public void receiveData (Members members, Member member) { 
-<span class="nc" id="L68">        this.members = members;</span>
-<span class="nc" id="L69">        this.member = member;</span>
-<span class="nc" id="L70">    }</span>
+<span class="nc" id="L69">        this.members = members;</span>
+<span class="nc" id="L70">        this.member = member;</span>
+<span class="nc" id="L71">    }</span>
     
     /**
      * This method will calculate the total of the purchase and display it in 
      * the total text field
      */
     public void calculateTotalButtonPushed() {
-<span class="nc" id="L77">        this.errorLabel.setText(&quot;&quot;);</span>
+<span class="nc" id="L78">        this.errorLabel.setText(&quot;&quot;);</span>
+<span class="nc bnc" id="L79" title="All 2 branches missed.">        if(this.startDatePicker.getValue() == null) {</span>
+<span class="nc" id="L80">            this.errorLabel.setText(&quot;The start date must be set&quot;);</span>
+<span class="nc" id="L81">            return;</span>
+        }
+<span class="nc bnc" id="L83" title="All 2 branches missed.">        if(this.endDatePicker.getValue() == null) {</span>
+<span class="nc" id="L84">            this.errorLabel.setText(&quot;The end date must be set&quot;);</span>
+<span class="nc" id="L85">            return;</span>
+        }
+               
         try {
-<span class="nc" id="L79">            this.membership = new Membership(this.typeChoiceBox.getValue(),</span>
-<span class="nc" id="L80">                this.startDatePicker.getValue(), </span>
-<span class="nc" id="L81">                this.endDatePicker.getValue());</span>
-<span class="nc" id="L82">            String price = String.format(&quot;%.2f&quot;, this.membership.getPrice());</span>
-<span class="nc" id="L83">            this.totalTextField.setText(price);</span>
-<span class="nc" id="L84">        }catch (IllegalArgumentException e) {</span>
-<span class="nc" id="L85">            this.errorLabel.setText(e.getMessage());</span>
-<span class="nc" id="L86">        }</span>
+<span class="nc" id="L89">            this.membership = new Membership(this.typeChoiceBox.getValue(),</span>
+<span class="nc" id="L90">                this.startDatePicker.getValue(), </span>
+<span class="nc" id="L91">                this.endDatePicker.getValue());</span>
+<span class="nc" id="L92">            String price = String.format(&quot;%.2f&quot;, this.membership.getPrice());</span>
+<span class="nc" id="L93">            this.totalTextField.setText(price);</span>
+<span class="nc" id="L94">        }catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L95">            this.errorLabel.setText(e.getMessage());</span>
+<span class="nc" id="L96">        }</span>
         
-<span class="nc" id="L88">    }</span>
+<span class="nc" id="L98">    }</span>
     
     /**
      * This method will create a new membership and assign it to the member 
@@ -95,16 +105,24 @@ import model.Membership;
      * @throws IOException 
      */
     public void purchaseButtonPushed(ActionEvent event) throws IOException {
+<span class="nc bnc" id="L108" title="All 2 branches missed.">        if(this.startDatePicker.getValue() == null) {</span>
+<span class="nc" id="L109">            this.errorLabel.setText(&quot;The start date must be set&quot;);</span>
+<span class="nc" id="L110">            return;</span>
+        }
+<span class="nc bnc" id="L112" title="All 2 branches missed.">        if(this.endDatePicker.getValue() == null) {</span>
+<span class="nc" id="L113">            this.errorLabel.setText(&quot;The end date must be set&quot;);</span>
+<span class="nc" id="L114">            return;</span>
+        }        
         try {
-<span class="nc" id="L99">            this.membership = new Membership(this.typeChoiceBox.getValue(),</span>
-<span class="nc" id="L100">                this.startDatePicker.getValue(), </span>
-<span class="nc" id="L101">                this.endDatePicker.getValue());</span>
-<span class="nc" id="L102">            this.member.addMembership(membership);</span>
-<span class="nc" id="L103">            this.changeView(event);</span>
-<span class="nc" id="L104">        }catch (IllegalArgumentException e) {</span>
-<span class="nc" id="L105">            this.errorLabel.setText(e.getMessage());</span>
-<span class="nc" id="L106">        }</span>
-<span class="nc" id="L107">    }</span>
+<span class="nc" id="L117">            this.membership = new Membership(this.typeChoiceBox.getValue(),</span>
+<span class="nc" id="L118">                this.startDatePicker.getValue(), </span>
+<span class="nc" id="L119">                this.endDatePicker.getValue());</span>
+<span class="nc" id="L120">            this.member.addMembership(membership);</span>
+<span class="nc" id="L121">            this.changeView(event);</span>
+<span class="nc" id="L122">        }catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L123">            this.errorLabel.setText(e.getMessage());</span>
+<span class="nc" id="L124">        }</span>
+<span class="nc" id="L125">    }</span>
     
     /**
      * This method change the scene to the main panel of the application, passing
@@ -113,22 +131,30 @@ import model.Membership;
      * @throws IOException 
      */
     public void changeView(ActionEvent event) throws IOException {
-<span class="nc" id="L116">        FXMLLoader loader = new FXMLLoader();</span>
-<span class="nc" id="L117">        loader.setLocation(getClass().getResource(&quot;MainPanelView.fxml&quot;));</span>
-<span class="nc" id="L118">        Parent tableViewParent = loader.load();</span>
+<span class="nc" id="L134">        FXMLLoader loader = new FXMLLoader();</span>
+<span class="nc" id="L135">        loader.setLocation(getClass().getResource(&quot;MainPanelView.fxml&quot;));</span>
+<span class="nc" id="L136">        Parent tableViewParent = loader.load();</span>
         
-<span class="nc" id="L120">        Scene tableViewScene = new Scene(tableViewParent);</span>
+<span class="nc" id="L138">        Scene tableViewScene = new Scene(tableViewParent);</span>
          
         //Passing the member list to the main panel of the application
-<span class="nc" id="L123">        MainPanelViewController controller = loader.getController();</span>
-<span class="nc" id="L124">        controller.setMemberList(members);</span>
+<span class="nc" id="L141">        MainPanelViewController controller = loader.getController();</span>
+<span class="nc" id="L142">        controller.setMemberList(members);</span>
         
          //Getting the stage object
-<span class="nc" id="L127">         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();</span>
-<span class="nc" id="L128">         stage.setTitle(&quot;COMP 1008 GYM&quot;);</span>
-<span class="nc" id="L129">         stage.setScene(tableViewScene);</span>
-<span class="nc" id="L130">         stage.show();</span>
-<span class="nc" id="L131">    }</span>
+<span class="nc" id="L145">         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();</span>
+<span class="nc" id="L146">         stage.setTitle(&quot;COMP 1008 GYM&quot;);</span>
+<span class="nc" id="L147">         stage.setScene(tableViewScene);</span>
+<span class="nc" id="L148">         stage.show();</span>
+<span class="nc" id="L149">    }</span>
+    
+     /**
+     * This method will return to the main panel when the cancel button is pressed
+     * @param event 
+     */
+    public void cancelButtonPushed(ActionEvent event) throws IOException {
+<span class="nc" id="L156">        this.changeView(event);</span>
+<span class="nc" id="L157">    }</span>
     
     
     

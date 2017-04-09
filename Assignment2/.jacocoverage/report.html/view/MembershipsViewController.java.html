@@ -29,12 +29,19 @@ import model.Membership;
  */
 <span class="nc" id="L30">public class MembershipsViewController implements Initializable {</span>
     
-    //Labels
+    //Labels that will be populated
     @FXML private Label membershipNumLabel;
     @FXML private Label fnameLabel;
     @FXML private Label lnameLabel;
     @FXML private Label emailLabel;
     @FXML private Label phoneLabel;
+    
+    //fixed labels
+    @FXML private Label membershipNumLabelFixed;
+    @FXML private Label fnameLabelFixed;
+    @FXML private Label lnameLabelFixed;
+    @FXML private Label emailLabelFixed;
+    @FXML private Label phoneLabelFixed;
     
     //configuring the table
     @FXML private TableView&lt;Membership&gt; tableView;
@@ -52,12 +59,19 @@ import model.Membership;
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-<span class="nc" id="L55">        membershipType.setCellValueFactory(new PropertyValueFactory&lt;Membership, String&gt;(&quot;type&quot;));</span>
-<span class="nc" id="L56">        membershipStatus.setCellValueFactory(new PropertyValueFactory&lt;Membership, String&gt;(&quot;status&quot;));</span>
-<span class="nc" id="L57">        membershipStartDate.setCellValueFactory(new PropertyValueFactory&lt;Membership, LocalDate&gt;(&quot;startDate&quot;));</span>
-<span class="nc" id="L58">        membershipEndDate.setCellValueFactory(new PropertyValueFactory&lt;Membership, LocalDate&gt;(&quot;endDate&quot;));</span>
-<span class="nc" id="L59">        membershipPrice.setCellValueFactory(new PropertyValueFactory&lt;Membership, Double&gt;(&quot;price&quot;));</span>
-<span class="nc" id="L60">    }</span>
+<span class="nc" id="L62">        membershipType.setCellValueFactory(new PropertyValueFactory&lt;Membership, String&gt;(&quot;type&quot;));</span>
+<span class="nc" id="L63">        membershipStatus.setCellValueFactory(new PropertyValueFactory&lt;Membership, String&gt;(&quot;status&quot;));</span>
+<span class="nc" id="L64">        membershipStartDate.setCellValueFactory(new PropertyValueFactory&lt;Membership, LocalDate&gt;(&quot;startDate&quot;));</span>
+<span class="nc" id="L65">        membershipEndDate.setCellValueFactory(new PropertyValueFactory&lt;Membership, LocalDate&gt;(&quot;endDate&quot;));</span>
+<span class="nc" id="L66">        membershipPrice.setCellValueFactory(new PropertyValueFactory&lt;Membership, Double&gt;(&quot;price&quot;));</span>
+        
+        //Setting the id for the css
+<span class="nc" id="L69">        this.membershipNumLabelFixed.setId(&quot;memberLabel&quot;);</span>
+<span class="nc" id="L70">        this.fnameLabelFixed.setId(&quot;memberLabel&quot;);</span>
+<span class="nc" id="L71">        this.lnameLabelFixed.setId(&quot;memberLabel&quot;);</span>
+<span class="nc" id="L72">        this.emailLabelFixed.setId(&quot;memberLabel&quot;);</span>
+<span class="nc" id="L73">        this.phoneLabelFixed.setId(&quot;memberLabel&quot;);</span>
+<span class="nc" id="L74">    }</span>
 
     /**
      * This method gets the membership list as an observable list
@@ -65,7 +79,7 @@ import model.Membership;
      * a member
      */
     public ObservableList&lt;Membership&gt; getMemberships() {
-<span class="nc" id="L68">        return FXCollections.observableArrayList(this.member.getMemberships());</span>
+<span class="nc" id="L82">        return FXCollections.observableArrayList(this.member.getMemberships());</span>
     }
     
     /**
@@ -73,17 +87,17 @@ import model.Membership;
      * @param member 
      */
     public void receiveData (Members members, Member member) { 
-<span class="nc" id="L76">        this.member = member;</span>
-<span class="nc" id="L77">        this.members = members;</span>
+<span class="nc" id="L90">        this.member = member;</span>
+<span class="nc" id="L91">        this.members = members;</span>
         //loading memberships
-<span class="nc" id="L79">        tableView.setItems(getMemberships());</span>
+<span class="nc" id="L93">        tableView.setItems(getMemberships());</span>
         
-<span class="nc" id="L81">        this.membershipNumLabel.setText(Integer.toString(member.getMembershipNumber()));</span>
-<span class="nc" id="L82">        this.fnameLabel.setText(member.getFirstName());</span>
-<span class="nc" id="L83">        this.lnameLabel.setText(member.getLastName());</span>
-<span class="nc" id="L84">        this.emailLabel.setText(member.getEmailAddress());</span>
-<span class="nc" id="L85">        this.phoneLabel.setText(member.getPhoneNumber());</span>
-<span class="nc" id="L86">    }</span>
+<span class="nc" id="L95">        this.membershipNumLabel.setText(Integer.toString(member.getMembershipNumber()));</span>
+<span class="nc" id="L96">        this.fnameLabel.setText(member.getFirstName());</span>
+<span class="nc" id="L97">        this.lnameLabel.setText(member.getLastName());</span>
+<span class="nc" id="L98">        this.emailLabel.setText(member.getEmailAddress());</span>
+<span class="nc" id="L99">        this.phoneLabel.setText(member.getPhoneNumber());</span>
+<span class="nc" id="L100">    }</span>
     
     /**
      * Method that returns to the main scene (main panel) of the application when
@@ -92,22 +106,22 @@ import model.Membership;
      * @throws IOException 
      */
     public void okButtonPushed(ActionEvent event) throws IOException {
-<span class="nc" id="L95">        FXMLLoader loader = new FXMLLoader();</span>
-<span class="nc" id="L96">        loader.setLocation(getClass().getResource(&quot;MainPanelView.fxml&quot;));</span>
-<span class="nc" id="L97">        Parent tableViewParent = loader.load();</span>
+<span class="nc" id="L109">        FXMLLoader loader = new FXMLLoader();</span>
+<span class="nc" id="L110">        loader.setLocation(getClass().getResource(&quot;MainPanelView.fxml&quot;));</span>
+<span class="nc" id="L111">        Parent tableViewParent = loader.load();</span>
         
-<span class="nc" id="L99">        Scene tableViewScene = new Scene(tableViewParent);</span>
+<span class="nc" id="L113">        Scene tableViewScene = new Scene(tableViewParent);</span>
         
         //Passing the member list to the main panel of the application
-<span class="nc" id="L102">        MainPanelViewController controller = loader.getController();</span>
-<span class="nc" id="L103">        controller.setMemberList(members);</span>
+<span class="nc" id="L116">        MainPanelViewController controller = loader.getController();</span>
+<span class="nc" id="L117">        controller.setMemberList(members);</span>
         
         //Getting the stage object
-<span class="nc" id="L106">        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();</span>
-<span class="nc" id="L107">        stage.setTitle(&quot;COMP 1008 GYM&quot;);</span>
-<span class="nc" id="L108">        stage.setScene(tableViewScene);</span>
-<span class="nc" id="L109">        stage.show();</span>
-<span class="nc" id="L110">    }</span>
+<span class="nc" id="L120">        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();</span>
+<span class="nc" id="L121">        stage.setTitle(&quot;COMP 1008 GYM&quot;);</span>
+<span class="nc" id="L122">        stage.setScene(tableViewScene);</span>
+<span class="nc" id="L123">        stage.show();</span>
+<span class="nc" id="L124">    }</span>
     
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

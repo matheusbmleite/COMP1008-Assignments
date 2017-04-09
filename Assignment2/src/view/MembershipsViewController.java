@@ -37,7 +37,7 @@ public class MembershipsViewController implements Initializable {
     @FXML private Label phoneLabel;
     
     //fixed labels
-     @FXML private Label membershipNumLabelFixed;
+    @FXML private Label membershipNumLabelFixed;
     @FXML private Label fnameLabelFixed;
     @FXML private Label lnameLabelFixed;
     @FXML private Label emailLabelFixed;

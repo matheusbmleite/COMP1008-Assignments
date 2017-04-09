@@ -1,8 +1,8 @@
 package model;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import static java.time.temporal.ChronoUnit.DAYS;
-import static java.time.temporal.ChronoUnit.HOURS;
 import java.util.HashMap;
 
 /**
@@ -110,7 +110,10 @@ public class Membership {
         } else {
             long length = DAYS.between(this.startDate, this.endDate);
             this.price = typeRate * length * 20;
-        } 
+        }
+        
+       //Simple way to round the price
+       this.price = (Math.round(this.price * 100)) / 100.0;
     }
 
     /**
