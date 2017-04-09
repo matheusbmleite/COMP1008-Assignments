@@ -29,12 +29,19 @@ import model.Membership;
  */
 public class MembershipsViewController implements Initializable {
     
-    //Labels
+    //Labels that will be populated
     @FXML private Label membershipNumLabel;
     @FXML private Label fnameLabel;
     @FXML private Label lnameLabel;
     @FXML private Label emailLabel;
     @FXML private Label phoneLabel;
+    
+    //fixed labels
+     @FXML private Label membershipNumLabelFixed;
+    @FXML private Label fnameLabelFixed;
+    @FXML private Label lnameLabelFixed;
+    @FXML private Label emailLabelFixed;
+    @FXML private Label phoneLabelFixed;
     
     //configuring the table
     @FXML private TableView<Membership> tableView;
@@ -57,6 +64,13 @@ public class MembershipsViewController implements Initializable {
         membershipStartDate.setCellValueFactory(new PropertyValueFactory<Membership, LocalDate>("startDate"));
         membershipEndDate.setCellValueFactory(new PropertyValueFactory<Membership, LocalDate>("endDate"));
         membershipPrice.setCellValueFactory(new PropertyValueFactory<Membership, Double>("price"));
+        
+        //Setting the id for the css
+        this.membershipNumLabelFixed.setId("memberLabel");
+        this.fnameLabelFixed.setId("memberLabel");
+        this.lnameLabelFixed.setId("memberLabel");
+        this.emailLabelFixed.setId("memberLabel");
+        this.phoneLabelFixed.setId("memberLabel");
     }
 
     /**

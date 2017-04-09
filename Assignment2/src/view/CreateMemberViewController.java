@@ -65,6 +65,7 @@ public class CreateMemberViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         errorLabel.setText("");
+        errorLabel.setId("error");
         
         //setting up the choice box
         this.provinceChoiceBox.getItems().addAll("ON", "QC", "NS", "NB", "MB", 
@@ -83,6 +84,10 @@ public class CreateMemberViewController implements Initializable {
      * @throws IOException 
      */
     public void createButtonPushed(ActionEvent event) throws IOException {
+        if(this.birthdateDatePicker.getValue() == null) {
+            errorLabel.setText("The birthdate field must be set");
+            return;
+        }
         Member newMember;
         try {
             newMember = new Member(fnameTextField.getText(), lnameTextField.getText(), 

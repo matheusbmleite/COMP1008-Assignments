@@ -51,6 +51,7 @@ public class PurchaseMembershipViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         errorLabel.setText("");
+        errorLabel.setId("error");
         this.totalTextField.setEditable(false);
         
         //setting up the choice box
@@ -75,6 +76,15 @@ public class PurchaseMembershipViewController implements Initializable {
      */
     public void calculateTotalButtonPushed() {
         this.errorLabel.setText("");
+        if(this.startDatePicker.getValue() == null) {
+            this.errorLabel.setText("The start date must be set");
+            return;
+        }
+        if(this.endDatePicker.getValue() == null) {
+            this.errorLabel.setText("The end date must be set");
+            return;
+        }
+               
         try {
             this.membership = new Membership(this.typeChoiceBox.getValue(),
                 this.startDatePicker.getValue(), 
@@ -95,6 +105,14 @@ public class PurchaseMembershipViewController implements Initializable {
      * @throws IOException 
      */
     public void purchaseButtonPushed(ActionEvent event) throws IOException {
+        if(this.startDatePicker.getValue() == null) {
+            this.errorLabel.setText("The start date must be set");
+            return;
+        }
+        if(this.endDatePicker.getValue() == null) {
+            this.errorLabel.setText("The end date must be set");
+            return;
+        }        
         try {
             this.membership = new Membership(this.typeChoiceBox.getValue(),
                 this.startDatePicker.getValue(), 

@@ -1,0 +1,123 @@
+/* 
+    Created on : 9-Apr-2017, 1:14:28 PM
+    Author     : matheus leite
+*/
+* {
+    primary-color: #366295;
+    secondary-color: white;
+    tertiary-color: #E5F2FF;
+    quaternary-color: A0A0A0;
+    
+}
+.button {
+  -fx-background-color: secondary-color;
+  -fx-text-fill: primary-color;
+  -fx-background-radius: 16px;
+  -fx-border-color: primary-color;
+  -fx-border-radius: 16px;
+}
+
+.root {
+    -fx-background-color: secondary-color;
+    -fx-text-fill: primary-color;    
+}
+
+.table-view .column-header {
+    -fx-background-color: primary-color;
+    -fx-text-fill: primary-color;
+}
+
+.table-view .column-header-background .label{
+    -fx-text-fill: secondary-color;
+}
+
+.table-view .filler {
+    -fx-background-color: primary-color;
+}
+
+.label {
+    -fx-text-fill: quaternary-color;
+}
+
+.table-view .table-cell{
+    -fx-text-fill: primary-color;
+}
+
+.table-row-cell{
+    -fx-background-color: -fx-table-cell-border-color, secondary-color;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em; /* 0 */
+}
+
+.table-row-cell:odd{
+    -fx-background-color: -fx-table-cell-border-color, tertiary-color;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em; /* 0 */  
+}
+
+.table-row-cell:selected {
+    -fx-background-color: primary-color;
+    -fx-background-insets: 0;
+    -fx-background-radius: 1;
+}
+
+.table-row-cell:selected .text {
+       -fx-fill: secondary-color;
+
+}
+
+.table-row-cell:expanded .text {
+       -fx-fill: primary-color;
+
+}
+
+.choice-box {
+    -fx-text-fill: primary-color;
+    -fx-background-color: secondary-color;
+    -fx-border-color: primary-color;
+    -fx-mark-color: primary-color;
+}
+
+.choice-box .context-menu {
+    -fx-background-color: secondary-color;
+    -fx-text-fill: primary-color !important; 
+}
+
+.choice-box .label {
+    -fx-text-fill: primary-color; 
+}
+
+.choice-box .menu-item:focused {
+  -fx-background-color: tertiary-color;
+
+}
+
+.text-field {
+    -fx-border-color: primary-color;
+    -fx-text-fill: primary-color;
+    -fx-border-radius: 5px;
+}
+
+.text-field:foccused {
+    -fx-border-color: primary-color;
+    -fx-text-fill: primary-color;
+}
+
+#error {
+    -fx-text-fill: primary-color;
+}
+
+.date-picker {
+    -fx-mark-color: primary-color;
+    -fx-background-color: secondary-color;
+}
+
+.date-picker > .arrow-button {
+    -fx-background-color: secondary-color;
+    -fx-border-color: primary-color;
+    -fx-border-radius: 5px;
+}
+
+#memberLabel {
+    -fx-text-fill: primary-color;
+}

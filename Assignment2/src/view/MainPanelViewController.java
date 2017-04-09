@@ -1,7 +1,5 @@
 package view;
 
-import com.google.gson.Gson;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -16,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -44,6 +43,11 @@ public class MainPanelViewController implements Initializable {
     //label
     @FXML private Label errorLabel;
     
+    //buttons
+    @FXML private Button createMemberButon;
+    @FXML private Button purchaseMembershipButon;
+    @FXML private Button viewMembershipsButon;
+    
     private Member newMember;
     private Members members = new Members();
     
@@ -63,6 +67,8 @@ public class MainPanelViewController implements Initializable {
         tableView.setItems(getMembersObservableList());
         
         errorLabel.setText("");
+        
+        
     }    
     
     /**
