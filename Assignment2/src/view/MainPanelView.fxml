@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="388.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainPanelViewController">
+<AnchorPane id="AnchorPane" prefHeight="312.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainPanelViewController">
    <children>
       <VBox layoutX="383.0" layoutY="165.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -23,7 +23,7 @@
                   <TableColumn fx:id="phoneColumn" minWidth="-1.0" prefWidth="92.0" text="Phone" />
               </columns>
             </TableView>
-            <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
+            <HBox alignment="TOP_CENTER" prefHeight="64.0" prefWidth="800.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#viewMembershipsButtonPushed" text="View Memberships">
                      <HBox.margin>
@@ -44,7 +44,7 @@
                   <Insets top="20.0" />
                </padding>
             </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="44.0" prefWidth="800.0">
                <children>
                   <Label fx:id="errorLabel" text="Label">
                      <padding>

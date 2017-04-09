@@ -21,7 +21,7 @@ import view.MainPanelViewController;
  */
 public class MembersController extends Application {
     private MainPanelViewController mainPanelController;
-    private Members members;
+    private Members members = new Members();
     
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -121,7 +121,7 @@ public class MembersController extends Application {
     private void readFromFile() {
         Gson gson = new Gson();
         try {
-            this.members = gson.fromJson(new FileReader("resources/members.json"), Members.class);
+            this.members = gson.fromJson(new FileReader("members.json"), Members.class);
         } catch (FileNotFoundException e) {
             //If there's no file, do nothing
         }

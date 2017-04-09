@@ -80,13 +80,12 @@ import model.Membership;
 <span class="nc" id="L80">                this.startDatePicker.getValue(), </span>
 <span class="nc" id="L81">                this.endDatePicker.getValue());</span>
 <span class="nc" id="L82">            String price = String.format(&quot;%.2f&quot;, this.membership.getPrice());</span>
-<span class="nc" id="L83">            System.out.println(this.membership.getPrice());</span>
-<span class="nc" id="L84">            this.totalTextField.setText(price);</span>
-<span class="nc" id="L85">        }catch (IllegalArgumentException e) {</span>
-<span class="nc" id="L86">            this.errorLabel.setText(e.getMessage());</span>
-<span class="nc" id="L87">        }</span>
+<span class="nc" id="L83">            this.totalTextField.setText(price);</span>
+<span class="nc" id="L84">        }catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L85">            this.errorLabel.setText(e.getMessage());</span>
+<span class="nc" id="L86">        }</span>
         
-<span class="nc" id="L89">    }</span>
+<span class="nc" id="L88">    }</span>
     
     /**
      * This method will create a new membership and assign it to the member 
@@ -97,15 +96,15 @@ import model.Membership;
      */
     public void purchaseButtonPushed(ActionEvent event) throws IOException {
         try {
-<span class="nc" id="L100">            this.membership = new Membership(this.typeChoiceBox.getValue(),</span>
-<span class="nc" id="L101">                this.startDatePicker.getValue(), </span>
-<span class="nc" id="L102">                this.endDatePicker.getValue());</span>
-<span class="nc" id="L103">            this.member.addMembership(membership);</span>
-<span class="nc" id="L104">            this.changeView(event);</span>
-<span class="nc" id="L105">        }catch (IllegalArgumentException e) {</span>
-<span class="nc" id="L106">            this.errorLabel.setText(e.getMessage());</span>
-<span class="nc" id="L107">        }</span>
-<span class="nc" id="L108">    }</span>
+<span class="nc" id="L99">            this.membership = new Membership(this.typeChoiceBox.getValue(),</span>
+<span class="nc" id="L100">                this.startDatePicker.getValue(), </span>
+<span class="nc" id="L101">                this.endDatePicker.getValue());</span>
+<span class="nc" id="L102">            this.member.addMembership(membership);</span>
+<span class="nc" id="L103">            this.changeView(event);</span>
+<span class="nc" id="L104">        }catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L105">            this.errorLabel.setText(e.getMessage());</span>
+<span class="nc" id="L106">        }</span>
+<span class="nc" id="L107">    }</span>
     
     /**
      * This method change the scene to the main panel of the application, passing
@@ -114,22 +113,22 @@ import model.Membership;
      * @throws IOException 
      */
     public void changeView(ActionEvent event) throws IOException {
-<span class="nc" id="L117">        FXMLLoader loader = new FXMLLoader();</span>
-<span class="nc" id="L118">        loader.setLocation(getClass().getResource(&quot;MainPanelView.fxml&quot;));</span>
-<span class="nc" id="L119">        Parent tableViewParent = loader.load();</span>
+<span class="nc" id="L116">        FXMLLoader loader = new FXMLLoader();</span>
+<span class="nc" id="L117">        loader.setLocation(getClass().getResource(&quot;MainPanelView.fxml&quot;));</span>
+<span class="nc" id="L118">        Parent tableViewParent = loader.load();</span>
         
-<span class="nc" id="L121">        Scene tableViewScene = new Scene(tableViewParent);</span>
+<span class="nc" id="L120">        Scene tableViewScene = new Scene(tableViewParent);</span>
          
         //Passing the member list to the main panel of the application
-<span class="nc" id="L124">        MainPanelViewController controller = loader.getController();</span>
-<span class="nc" id="L125">        controller.setMemberList(members);</span>
+<span class="nc" id="L123">        MainPanelViewController controller = loader.getController();</span>
+<span class="nc" id="L124">        controller.setMemberList(members);</span>
         
          //Getting the stage object
-<span class="nc" id="L128">         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();</span>
-<span class="nc" id="L129">         stage.setTitle(&quot;COMP 1008 GYM&quot;);</span>
-<span class="nc" id="L130">         stage.setScene(tableViewScene);</span>
-<span class="nc" id="L131">         stage.show();</span>
-<span class="nc" id="L132">    }</span>
+<span class="nc" id="L127">         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();</span>
+<span class="nc" id="L128">         stage.setTitle(&quot;COMP 1008 GYM&quot;);</span>
+<span class="nc" id="L129">         stage.setScene(tableViewScene);</span>
+<span class="nc" id="L130">         stage.show();</span>
+<span class="nc" id="L131">    }</span>
     
     
     

@@ -106,10 +106,10 @@ public class Membership {
     public void setPrice() {
 <span class="fc" id="L107">        double typeRate = this.rates.get(this.type);</span>
 <span class="fc bfc" id="L108" title="All 2 branches covered.">        if(this.startDate.equals(this.endDate)) {</span>
-<span class="fc" id="L109">            this.price = typeRate + 9;</span>
+<span class="fc" id="L109">            this.price = typeRate + 5;</span>
         } else {
 <span class="fc" id="L111">            long length = DAYS.between(this.startDate, this.endDate);</span>
-<span class="fc" id="L112">            this.price = typeRate * length * 5;</span>
+<span class="fc" id="L112">            this.price = typeRate * length * 20;</span>
         } 
 <span class="fc" id="L114">    }</span>
 

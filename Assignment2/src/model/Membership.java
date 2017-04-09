@@ -106,10 +106,10 @@ public class Membership {
     public void setPrice() {
         double typeRate = this.rates.get(this.type);
         if(this.startDate.equals(this.endDate)) {
-            this.price = typeRate + 9;
+            this.price = typeRate + 5;
         } else {
             long length = DAYS.between(this.startDate, this.endDate);
-            this.price = typeRate * length * 5;
+            this.price = typeRate * length * 20;
         } 
     }
 

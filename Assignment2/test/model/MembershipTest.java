@@ -173,7 +173,7 @@ public class MembershipTest {
     @Test
     public void testGetPrice() {
         System.out.println("getPrice");
-        double expResult = 600;
+        double expResult = 2370.0;
         double result = validMembership.getPrice();
         assertEquals(expResult, result, 0.0);
     }

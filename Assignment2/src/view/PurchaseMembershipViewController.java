@@ -80,7 +80,6 @@ public class PurchaseMembershipViewController implements Initializable {
                 this.startDatePicker.getValue(), 
                 this.endDatePicker.getValue());
             String price = String.format("%.2f", this.membership.getPrice());
-            System.out.println(this.membership.getPrice());
             this.totalTextField.setText(price);
         }catch (IllegalArgumentException e) {
             this.errorLabel.setText(e.getMessage());
