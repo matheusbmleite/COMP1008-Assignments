@@ -14,5 +14,5 @@ for the Introduction to Object Oriented Programming class (COMP1008).
 
 # Assignment2
 - A small system that simulates a gym memberhsip manager. With this system you can create a member, purchase memberships and display information about the members.
-- Url to the jar file and documentation: [COMP1008 GYM] (http://gc200350070.computerstudi.es/assignment2OOP/).
+- Url to the jar file and documentation: [COMP1008 GYM](http://gc200350070.computerstudi.es/assignment2OOP/).
 	* Unizp the file and use either "java -jar assignment2.jar" on the command line or double-click on the jar file to run the program.
