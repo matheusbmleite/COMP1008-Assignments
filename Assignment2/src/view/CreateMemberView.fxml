@@ -79,7 +79,7 @@
                </GridPane.margin>
             </Label>
             <TextField fx:id="emailTextField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <Label fx:id="phoneLabel" text="Phoone Number" GridPane.rowIndex="8">
+            <Label fx:id="phoneLabel" text="Phone Number" GridPane.rowIndex="8">
                <GridPane.margin>
                   <Insets right="20.0" />
                </GridPane.margin>
